@@ -95,7 +95,7 @@ El primer prototipo se diseñó para definir la estructura del flujo principal:
 - Formulario de cálculo (inputs para modelo, consultas, frecuencia).  
 - Dashboard de resultados.  
 
-🖊️ *El prototipo fue hecho en papel y luego digitalizado.*
+*El prototipo fue hecho en papel y luego digitalizado.*
 
 ---
 
@@ -168,3 +168,4 @@ Las pruebas unitarias se realizaron con **pytest**, cubriendo las siguientes ár
 **💚 Proyecto realizado por: Estrella Alberto, Clara Angulo, Martina Muñoz e Isidora Zapata**  
 Equipo **EcoAI** — Noviembre 2025  
 Desarrollado en el marco del curso de **Python con Flask** de Latinas in Cloud.  
+
