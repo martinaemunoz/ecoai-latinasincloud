@@ -1,18 +1,17 @@
-<!-- página principal con el formulario -->
 {% extends "base.html" %}
 
 {% block content %}
 <div class="calculator-container">
     <h2>Calcula tu impacto ambiental al consultar la IA</h2>
     
-    <form action="/calcular" method="POST" class="impact-form">
+    <form id="impactForm" class="impact-form">
         <div class="form-group">
             <label for="modelo">Selecciona el modelo de IA:</label>
             <select name="modelo" id="modelo" required>
-                <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
-                <option value="gpt-4">GPT-4</option>
-                <option value="gemini">Gemini</option>
-                <option value="claude">Claude</option>
+                <option value="A">GPT-3.5 Turbo</option>
+                <option value="B">GPT-4</option>
+                <option value="C">Gemini</option>
+                <option value="D">Claude</option>
             </select>
         </div>
 
@@ -23,5 +22,39 @@
 
         <button type="submit" class="calculate-btn">Calcular</button>
     </form>
+
+    <div id="resultado" style="margin-top:20px; font-weight:bold;"></div>
 </div>
+
+<script>
+document.getElementById('impactForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const modelo = document.getElementById('modelo').value;
+    const consultas = parseInt(document.getElementById('consultas').value);
+
+    try {
+        const response = await fetch('/api/calcular', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ modelo, consultas })
+        });
+
+        if (!response.ok) throw new Error('Error en la solicitud');
+
+        const data = await response.json();
+
+        document.getElementById('resultado').innerHTML = `
+            <p>✅ <strong>Resultado:</strong></p>
+            <p>Modelo: ${data.modelo}</p>
+            <p>Consultas: ${data.consultas}</p>
+            <p>Eficiencia estimada: ${data.eficiencia_estimacion}</p>
+            <p>Mensaje: ${data.mensaje}</p>
+        `;
+    } catch (error) {
+        document.getElementById('resultado').innerHTML =
+            '<p style="color:red;">Error al conectar con el servidor</p>';
+    }
+});
+</script>
 {% endblock %}
