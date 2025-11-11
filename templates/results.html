@@ -1,1 +1,27 @@
-<!-- página para mostrar resultados -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="results-container">
+	<h2>Resultados del Cálculo</h2>
+
+	{% if resultado is string %}
+		<div class="error-message">
+			<p>{{ resultado }}</p>
+		</div>
+	{% elif resultado is mapping %}
+		<div class="result-card">
+			<p><strong>Modelo:</strong> {{ resultado.modelo }}</p>
+			<p><strong>Consultas:</strong> {{ resultado.consultas }}</p>
+			<ul>
+				<li><strong>Agua (L):</strong> {{ resultado.agua }}</li>
+				<li><strong>Energía (kWh):</strong> {{ resultado.energia }}</li>
+				<li><strong>CO₂ (kg):</strong> {{ resultado.co2 }}</li>
+			</ul>
+		</div>
+	{% else %}
+		<p>No hay resultado válido para mostrar.</p>
+	{% endif %}
+
+	<p><a href="{{ url_for('index') }}">← Volver</a></p>
+</div>
+{% endblock %}
