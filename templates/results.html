@@ -2,6 +2,7 @@
 
 {% block content %}
 <div class="results-container">
+	<p><a href="{{ url_for('index') }}">← Volver</a></p>
 	<h2>Resultados del Cálculo</h2>
 
 	{% if resultado is string %}
@@ -11,17 +12,16 @@
 	{% elif resultado is mapping %}
 		<div class="result-card">
 			<p><strong>Modelo:</strong> {{ resultado.modelo }}</p>
-			<p><strong>Consultas:</strong> {{ resultado.consultas }}</p>
+			<p><strong>Tipo de consulta:</strong> {{ resultado.tipo_consulta|capitalize }}</p>
+			<p><strong>Cantidad:</strong> {{ resultado.cantidad }}</p>
 			<ul>
-				<li><strong>Agua (L):</strong> {{ resultado.agua }}</li>
-				<li><strong>Energía (kWh):</strong> {{ resultado.energia }}</li>
-				<li><strong>CO₂ (kg):</strong> {{ resultado.co2 }}</li>
+				<li><strong>Agua (L):</strong> {{ resultado.agua }} — {{ resultado.eq_agua }}</li>
+				<li><strong>Energía (kWh):</strong> {{ resultado.energia }} — {{ resultado.eq_energia }}</li>
+				<li><strong>CO₂ (kg):</strong> {{ resultado.co2 }} — {{ resultado.eq_co2 }}</li>
 			</ul>
 		</div>
 	{% else %}
 		<p>No hay resultado válido para mostrar.</p>
 	{% endif %}
-
-	<p><a href="{{ url_for('index') }}">← Volver</a></p>
 </div>
 {% endblock %}

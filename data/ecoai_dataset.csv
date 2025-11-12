@@ -1,0 +1,16 @@
+modelo,proveedor,tipo_consulta,unidad_medida,agua(L),energia(kWh),carbono(gCO2e),eq_agua,eq_energia,eq_co2
+GPT-4 Turbo,OpenAI,texto,pregunta,0.75,0.15,0.3,3 vasos de agua,10 min ampolleta LED,200 m en auto
+Claude 3 Opus,Anthropic,texto,pregunta,0.6,0.12,0.24,2.5 vasos de agua,8 min ampolleta LED,160 m en auto
+Gemini 1.5 Pro,Google,texto,pregunta,0.65,0.13,0.26,3 vasos de agua,9 min ampolleta LED,170 m en auto
+GPT-4 Turbo,OpenAI,código,bloque,1.2,0.25,0.45,medio vaso de agua,18 min ampolleta LED,300 m en auto
+Claude 3 Opus,Anthropic,código,bloque,1.0,0.2,0.4,medio vaso de agua,15 min ampolleta LED,270 m en auto
+Gemini 1.5 Pro,Google,código,bloque,1.1,0.22,0.42,medio vaso de agua,16 min ampolleta LED,280 m en auto
+Gemini 1.5 Pro,Google,imagen,imagen,2.1,0.6,1.2,1 botella de agua (500ml),45 min ampolleta LED,1 km en auto
+Claude 3 Opus,Anthropic,imagen,imagen,1.8,0.5,1.0,1 botella de agua (500ml),40 min ampolleta LED,900 m en auto
+GPT-4 Turbo,OpenAI,imagen,imagen,2.3,0.65,1.25,1 botella de agua (500ml),50 min ampolleta LED,1.1 km en auto
+Whisper Large V3,OpenAI,audio,minuto,1.5,0.35,0.6,2 vasos de agua,25 min ampolleta LED,600 m en auto
+Gemini 1.5 Pro,Google,audio,minuto,1.4,0.33,0.58,2 vasos de agua,24 min ampolleta LED,580 m en auto
+Claude 3 Opus,Anthropic,audio,minuto,1.3,0.3,0.55,2 vasos de agua,22 min ampolleta LED,550 m en auto
+Gemini 1.5 Pro,Google,video,minuto,4.5,1.2,2.5,2 botellas de agua (1L),1.5 h ampolleta LED,2.5 km en auto
+Claude 3 Opus,Anthropic,video,minuto,4.0,1.0,2.2,2 botellas de agua (1L),1.3 h ampolleta LED,2.2 km en auto
+GPT-4 Turbo,OpenAI,video,minuto,4.8,1.3,2.8,2 botellas de agua (1L),1.6 h ampolleta LED,2.8 km en auto
