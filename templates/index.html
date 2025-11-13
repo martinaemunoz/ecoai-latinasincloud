@@ -9,16 +9,28 @@
         <div class="form-group">
             <label for="modelo">Selecciona el modelo de IA:</label>
             <select name="modelo" id="modelo" required>
-                <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
-                <option value="gpt-4">GPT-4</option>
-                <option value="gemini">Gemini</option>
-                <option value="claude">Claude</option>
+                <option value="">-- Selecciona un modelo --</option>
+                <option value="GPT-4 Turbo">GPT-4 Turbo (OpenAI)</option>
+                <option value="Claude 3 Opus">Claude 3 Opus (Anthropic)</option>
+                <option value="Gemini 1.5 Pro">Gemini 1.5 Pro (Google)</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="consultas">Número de consultas realizadas:</label>
-            <input type="number" name="consultas" id="consultas" min="1" required>
+            <label for="tipo_consulta">Tipo de consulta:</label>
+            <select name="tipo_consulta" id="tipo_consulta" required data-texto="Número de consultas de texto" data-código="Cantidad de bloques de código" data-imagen="Número de imágenes" data-audio="Cantidad de minutos de audio transcribidos" data-video="Cantidad de minutos de video">
+                <option value="">-- Selecciona un tipo --</option>
+                <option value="texto">Consultas de texto simple</option>
+                <option value="código">Creación o ejecución de código</option>
+                <option value="imagen">Creación de imagen</option>
+                <option value="audio">Transcripción de audio</option>
+                <option value="video">Creación de video</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="cantidad" id="cantidad-label">Cantidad:</label>
+            <input type="number" name="cantidad" id="cantidad" min="1" placeholder="Selecciona un tipo de consulta primero" disabled>
         </div>
 
         <button type="submit" class="calculate-btn">Calcular</button>
