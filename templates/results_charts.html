@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="charts-container">
+    <h2>Análisis Visual del Impacto Ambiental</h2>
+    <p class="subtitle">Visualiza cómo diferentes modelos y tipos de consulta afectan el medio ambiente</p>
+
+    <!-- ===============================================
+         GRÁFICO 1: Comparación de impacto por modelo (Barras agrupadas)
+         ===============================================
+         
+         INSTRUCCIONES PARA IMPLEMENTAR:
+         - Tipo: Chart.js Bar Chart (grouped bars)
+         - Descripción: Compara el consumo promedio de agua, energía y CO₂ por modelo
+         - Datos necesarios: Promedios por modelo desde dataset (agua, energía, carbono)
+         - Ejes: X = modelo (GPT-4 Turbo, Claude 3 Opus, Gemini 1.5 Pro, Whisper Large V3)
+                 Y = cantidad (L para agua, kWh para energía, gCO2e para carbono)
+         - Información útil: Claude 3 Opus es el más eficiente en texto, 
+                           Gemini consume más energía en imágenes
+         
+         UBICACIÓN DEL CÓDIGO: 
+         - HTML (canvas): Este archivo (results_charts.html)
+         - JavaScript: static/js/charts.js → función initModelComparisonChart()
+         
+         DATOS DE ENTRADA (desde ecoai_dataset.csv):
+         Calcular promedios de agua, energía y carbono para cada modelo
+         y pasarlos como variables de contexto desde app.py
+    ================================================== -->
+    <div class="chart-section">
+        <h3>📊 Impacto Ambiental por Modelo</h3>
+        <p class="chart-description">Comparación de agua, energía y CO₂ consumidos en promedio por cada modelo de IA</p>
+        <canvas id="modelComparisonChart"></canvas>
+    </div>
+
+    <!-- ===============================================
+         GRÁFICO 2: Impacto por tipo de consulta (Radar o Doughnut)
+         ===============================================
+         
+         INSTRUCCIONES PARA IMPLEMENTAR:
+         - Tipo: Chart.js Radar Chart (alternativa: Doughnut)
+         - Descripción: Visualiza cómo cambia el impacto según tipo de consulta
+         - Datos: Promedios por tipo_consulta (texto, código, imagen, audio, video)
+         - Métrica sugerida: Impacto total = agua + energía + carbono (normalizado)
+         - Insight: Multimedia (imagen, audio, video) tiene 4-5x más impacto que texto
+         
+         UBICACIÓN DEL CÓDIGO:
+         - HTML (canvas): Este archivo (results_charts.html)
+         - JavaScript: static/js/charts.js → función initQueryTypeChart()
+         
+         DATOS DE ENTRADA:
+         - Calcular promedio de impacto para cada tipo_consulta
+         - Normalizar valores para comparabilidad en radar (0-100 scale)
+    ================================================== -->
+    <div class="chart-section">
+        <h3>🎯 Impacto por Tipo de Consulta</h3>
+        <p class="chart-description">Visualiza cómo cambia el consumo ambiental según el tipo de tarea (texto, código, imagen, etc.)</p>
+        <canvas id="queryTypeChart"></canvas>
+    </div>
+
+    <!-- ===============================================
+         GRÁFICO 3: Distribución de consumo energético (Pie Chart)
+         ===============================================
+         
+         INSTRUCCIONES PARA IMPLEMENTAR:
+         - Tipo: Chart.js Pie Chart
+         - Descripción: Porcentaje de energía total por tipo de consulta O por modelo
+         - Datos: Suma total de energía por tipo_consulta (o por modelo)
+         - Uso: Resaltar qué tareas consumen más energía relativamente
+         
+         OPCIONES:
+         A) Distribución por tipo_consulta: mostrar que imagen/video dominan
+         B) Distribución por modelo: mostrar cuál modelo consume más en total
+         
+         Recomendación: Implementar A (por tipo_consulta) primero, luego ofrecer toggle
+         
+         UBICACIÓN DEL CÓDIGO:
+         - HTML (canvas): Este archivo (results_charts.html)
+         - JavaScript: static/js/charts.js → función initEnergyDistributionChart()
+         
+         DATOS DE ENTRADA:
+         - Sumar energía total por tipo_consulta
+         - Calcular porcentaje de cada tipo respecto al total
+    ================================================== -->
+    <div class="chart-section">
+        <h3>⚡ Distribución del Consumo Energético</h3>
+        <p class="chart-description">¿Qué tipo de consulta consume más energía? Visualiza los porcentajes totales</p>
+        <canvas id="energyDistributionChart"></canvas>
+    </div>
+
+    <!-- ===============================================
+         GRÁFICO 4: Equivalencias visuales (Cards + infografías)
+         ===============================================
+         
+         INSTRUCCIONES PARA IMPLEMENTAR:
+         - Tipo: NO es un gráfico Chart.js clásico
+         - Descripción: Cards interactivas que muestren equivalencias ambientales
+         - Formato sugerido:
+           * "1 consulta de código en GPT-4 = 20 minutos de ampolleta LED"
+           * "10 imágenes en Gemini = 5 botellas de agua"
+           * "100 videos = 1 km en coche"
+         
+         IMPLEMENTACIÓN:
+         - HTML: Crear cards con íconos (💧 agua, ⚡ energía, 🌍 CO₂)
+         - JavaScript: Función que calcule equivalencias basadas en resultado actual
+         - Interactividad: Al cambiar modelo/tipo, actualizar equivalencias dinámicamente
+         
+         UBICACIÓN DEL CÓDIGO:
+         - HTML: Este archivo (results_charts.html) - section equivalences-cards
+         - JavaScript: static/js/charts.js → función updateEquivalenceCards()
+         
+         DATOS DE ENTRADA:
+         - Usar los valores eq_agua, eq_energia, eq_co2 del resultado
+         - Hacer que sea dinámico basado en formulario
+    ================================================== -->
+    <div class="chart-section equivalences">
+        <h3>💡 Equivalencias Ambientales</h3>
+        <p class="chart-description">¿Qué significa en términos reales el impacto de tus consultas?</p>
+        <div class="equivalence-cards" id="equivalenceCards">
+            <!-- Aquí van las cards generadas dinámicamente por JavaScript -->
+        </div>
+    </div>
+
+    <!-- ===============================================
+         GRÁFICO 5: Evolución del impacto acumulado (Line o Area Chart)
+         ===============================================
+         
+         INSTRUCCIONES PARA IMPLEMENTAR:
+         - Tipo: Chart.js Line Chart o Area Chart
+         - Descripción: Mostrar impacto acumulado con 1, 10, 100, 1000 consultas
+         - Ejes: X = número de consultas (1, 10, 100, 1000, 10000)
+                 Y = consumo acumulado (agua en L, energía en kWh, carbono en kg)
+         - Uso: Proyectar impacto a escala empresarial o mensual
+         
+         EJEMPLO INTERACTIVO:
+         - Selector para elegir modelo y tipo de consulta
+         - Gráfico actualiza mostrando curva de crecimiento
+         - Tooltip muestra equivalencia ("1000 consultas = X duchas")
+         
+         UBICACIÓN DEL CÓDIGO:
+         - HTML (canvas + selector): Este archivo (results_charts.html)
+         - JavaScript: static/js/charts.js → función initCumulativeImpactChart()
+         
+         DATOS DE ENTRADA:
+         - Tomar valores base de un modelo/tipo seleccionado
+         - Multiplicar por 1, 10, 100, 1000, 10000
+         - Mostrar curva de crecimiento
+    ================================================== -->
+    <div class="chart-section">
+        <h3>📈 Impacto Acumulado (Proyección a Escala)</h3>
+        <p class="chart-description">¿Cuánto impacto genera hacer muchas consultas? Proyecta el consumo a largo plazo</p>
+        <div class="chart-controls">
+            <label for="cumulativeModel">Selecciona modelo:</label>
+            <select id="cumulativeModel">
+                <option value="GPT-4 Turbo">GPT-4 Turbo</option>
+                <option value="Claude 3 Opus">Claude 3 Opus</option>
+                <option value="Gemini 1.5 Pro">Gemini 1.5 Pro</option>
+                <option value="Whisper Large V3">Whisper Large V3</option>
+            </select>
+            <label for="cumulativeQueryType">Tipo de consulta:</label>
+            <select id="cumulativeQueryType">
+                <option value="texto">Texto</option>
+                <option value="código">Código</option>
+                <option value="imagen">Imagen</option>
+                <option value="audio">Audio</option>
+                <option value="video">Video</option>
+            </select>
+        </div>
+        <canvas id="cumulativeImpactChart"></canvas>
+    </div>
+
+    <!-- ===============================================
+         GRÁFICO 6: Índice de Eficiencia Ambiental (Horizontal Bar)
+         ===============================================
+         
+         INSTRUCCIONES PARA IMPLEMENTAR:
+         - Tipo: Chart.js Horizontal Bar Chart
+         - Descripción: Ranking de eficiencia de modelos
+         - Métrica: Eficiencia = 1 / (agua + energía + carbono)
+                    ó usar score inverso donde MÁS ALTO = MEJOR
+         
+         FÓRMULA SUGERIDA:
+         Eficiencia_Score = 100 / (agua_promedio + energía_promedio + carbono_promedio)
+         
+         Esto ordena los modelos: cuanto mayor el score, más eficiente
+         (menos impacto por consulta)
+         
+         UBICACIÓN DEL CÓDIGO:
+         - HTML (canvas): Este archivo (results_charts.html)
+         - JavaScript: static/js/charts.js → función initEfficiencyIndexChart()
+         
+         DATOS DE ENTRADA:
+         - Calcular promedio de agua, energía, carbono por modelo
+         - Aplicar fórmula de eficiencia
+         - Ordenar de mayor a menor eficiencia
+    ================================================== -->
+    <div class="chart-section">
+        <h3>🌿 Índice de Eficiencia Ambiental</h3>
+        <p class="chart-description">Ranking de modelos según su eficiencia ambiental (puntuación más alta = más eficiente)</p>
+        <canvas id="efficiencyIndexChart"></canvas>
+    </div>
+
+    <div class="charts-footer">
+        <a href="{{ url_for('index') }}" class="btn-back">← Volver al formulario</a>
+    </div>
+</div>
+
+<!-- ===============================================
+     SCRIPTS Y DEPENDENCIAS
+     ===============================================
+     
+     ASEGÚRATE DE INCLUIR:
+     1. Chart.js (librería de gráficos)
+     2. Archivo local charts.js con todas las funciones
+     
+     ORDEN DE CARGA IMPORTANTE:
+     - Primero: CDN de Chart.js
+     - Luego: charts.js local
+     - Luego: inicializar gráficos
+     
+     El HTML de cada canvas debe estar antes de los scripts
+================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+
+<script>
+    // Datos pasados desde Flask (ver app.py para cómo pasar estos datos)
+    const chartData = {
+        models: {{ models|safe }},           // Lista de modelos
+        queryTypes: {{ query_types|safe }},  // Lista de tipos de consulta
+        modelStats: {{ model_stats|safe }},  // Stats por modelo
+        queryTypeStats: {{ query_type_stats|safe }} // Stats por tipo
+    };
+    
+    // Inicializar todos los gráficos cuando la página carga
+    document.addEventListener('DOMContentLoaded', function() {
+        initModelComparisonChart(chartData);
+        initQueryTypeChart(chartData);
+        initEnergyDistributionChart(chartData);
+        initCumulativeImpactChart(chartData);
+        initEfficiencyIndexChart(chartData);
+        updateEquivalenceCards(chartData);
+    });
+    
+    // Listener para actualizar gráfico acumulado cuando cambian los selects
+    document.getElementById('cumulativeModel').addEventListener('change', () => {
+        initCumulativeImpactChart(chartData);
+    });
+    document.getElementById('cumulativeQueryType').addEventListener('change', () => {
+        initCumulativeImpactChart(chartData);
+    });
+</script>
+
+{% endblock %}
