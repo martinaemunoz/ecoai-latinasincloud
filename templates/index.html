@@ -1,39 +1,156 @@
-<!-- página principal con el formulario -->
 {% extends "base.html" %}
 
 {% block content %}
-<div class="calculator-container">
-    <h2>Calcula tu impacto ambiental al consultar la IA</h2>
-    
-    <form action="/calcular" method="POST" class="impact-form">
-        <div class="form-group">
-            <label for="modelo">Selecciona el modelo de IA:</label>
-            <select name="modelo" id="modelo" required>
-                <option value="">-- Selecciona un modelo --</option>
-                <option value="GPT-4 Turbo">GPT-4 Turbo (OpenAI)</option>
-                <option value="Claude 3 Opus">Claude 3 Opus (Anthropic)</option>
-                <option value="Gemini 1.5 Pro">Gemini 1.5 Pro (Google)</option>
-            </select>
-        </div>
+<!-- Welcome Section -->
+<section class="welcome-section">
+    <div class="welcome-container">
+        <div class="welcome-content">
+            <h2>Bienvenido a EcoAI</h2>
+            <p class="welcome-subtitle">Descubre el impacto ambiental real de tus consultas de IA</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">💧</span>
+                    <h3>Agua</h3>
+                    <p>Mide el consumo de agua en litros</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Energía</h3>
+                    <p>Calcula la energía en kWh consumida</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🌍</span>
+                    <h3>Carbono</h3>
+                    <p>Estima las emisiones de CO₂</p>
+                </div>
+            </div>
 
-        <div class="form-group">
-            <label for="tipo_consulta">Tipo de consulta:</label>
-            <select name="tipo_consulta" id="tipo_consulta" required data-texto="Número de consultas de texto" data-código="Cantidad de bloques de código" data-imagen="Número de imágenes" data-audio="Cantidad de minutos de audio transcribidos" data-video="Cantidad de minutos de video">
-                <option value="">-- Selecciona un tipo --</option>
-                <option value="texto">Consultas de texto simple</option>
-                <option value="código">Creación o ejecución de código</option>
-                <option value="imagen">Creación de imagen</option>
-                <option value="audio">Transcripción de audio</option>
-                <option value="video">Creación de video</option>
-            </select>
+            <a href="#calculator" class="btn btn-primary btn-lg">Comenzar Cálculo</a>
         </div>
-
-        <div class="form-group">
-            <label for="cantidad" id="cantidad-label">Cantidad:</label>
-            <input type="number" name="cantidad" id="cantidad" min="1" placeholder="Selecciona un tipo de consulta primero" disabled>
+        
+        <div class="welcome-image">
+            <svg viewBox="0 0 400 400" class="hero-illustration">
+                <circle cx="200" cy="200" r="150" fill="#d1fae5" opacity="0.5"/>
+                <circle cx="200" cy="200" r="100" fill="#a7f3d0" opacity="0.5"/>
+                <path d="M 200 150 L 250 250 L 150 250 Z" fill="#10b981" opacity="0.7"/>
+                <circle cx="200" cy="120" r="30" fill="#34d399"/>
+            </svg>
         </div>
+    </div>
+</section>
 
-        <button type="submit" class="calculate-btn">Calcular</button>
-    </form>
-</div>
+<!-- Calculator Section -->
+<section id="calculator" class="calculator-section">
+    <div class="calculator-container">
+        <h2>Calcula tu Impacto Ambiental</h2>
+        <p class="section-subtitle">Selecciona el modelo de IA y el tipo de consulta</p>
+
+        <form id="impactForm" action="/calcular" method="POST" class="impact-form" novalidate>
+            <!-- Modelo Selection -->
+            <div class="form-group">
+                <label for="modelo">
+                    <span class="label-text">Modelo de IA</span>
+                    <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                    <select name="modelo" id="modelo" required class="form-select">
+                        <option value="">-- Selecciona un modelo --</option>
+                        <option value="GPT-4 Turbo">GPT-4 Turbo (OpenAI)</option>
+                        <option value="Claude 3 Opus">Claude 3 Opus (Anthropic)</option>
+                        <option value="Gemini 1.5 Pro">Gemini 1.5 Pro (Google)</option>
+                    </select>
+                    <svg class="select-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="form-hint">Elige el modelo de IA que usarás</div>
+            </div>
+
+            <!-- Query Type Selection -->
+            <div class="form-group">
+                <label for="tipo_consulta">
+                    <span class="label-text">Tipo de Consulta</span>
+                    <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                    <select name="tipo_consulta" id="tipo_consulta" required class="form-select">
+                        <option value="">-- Selecciona un tipo --</option>
+                        <option value="texto" data-hint="Número de consultas de texto simple">📝 Consultas de texto</option>
+                        <option value="código" data-hint="Cantidad de bloques de código">💻 Creación de código</option>
+                        <option value="imagen" data-hint="Número de imágenes generadas">🖼️ Generación de imagen</option>
+                        <option value="audio" data-hint="Cantidad de minutos de audio">🎵 Transcripción de audio</option>
+                        <option value="video" data-hint="Cantidad de minutos de video">🎬 Creación de video</option>
+                    </select>
+                    <svg class="select-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="form-hint" id="typeHint">Selecciona un tipo de consulta primero</div>
+            </div>
+
+            <!-- Quantity Input -->
+            <div class="form-group">
+                <label for="cantidad">
+                    <span class="label-text" id="cantidadLabel">Cantidad</span>
+                    <span class="required">*</span>
+                </label>
+                <div class="input-wrapper input-number">
+                    <input 
+                        type="number" 
+                        name="cantidad" 
+                        id="cantidad" 
+                        min="1" 
+                        step="0.1"
+                        placeholder="Ingresa una cantidad" 
+                        required 
+                        class="form-input"
+                        disabled
+                    >
+                    <span class="input-unit" id="cantidadUnit"></span>
+                </div>
+                <div class="form-hint">Ingresa un número positivo según el tipo de consulta</div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary btn-lg" id="submitBtn" disabled>
+                <span>Calcular Impacto</span>
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                    <polyline points="13 2 13 9 20 9"></polyline>
+                </svg>
+            </button>
+
+            <!-- Form Error Message -->
+            <div id="formError" class="form-error hidden"></div>
+        </form>
+
+        <!-- Info Section -->
+        <div id="info" class="info-section">
+            <h3>¿Cómo funciona?</h3>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-number">1</div>
+                    <h4>Selecciona un Modelo</h4>
+                    <p>Elige el modelo de IA que utilizarás: GPT-4 Turbo, Claude 3 Opus o Gemini 1.5 Pro</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-number">2</div>
+                    <h4>Elige el Tipo</h4>
+                    <p>Selecciona qué tipo de consulta realizarás: texto, código, imagen, audio o video</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-number">3</div>
+                    <h4>Ingresa la Cantidad</h4>
+                    <p>Especifica cuántas consultas harás según la unidad de medida</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-number">4</div>
+                    <h4>Obtén Resultados</h4>
+                    <p>Visualiza el impacto ambiental en agua, energía y carbono con equivalencias</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
