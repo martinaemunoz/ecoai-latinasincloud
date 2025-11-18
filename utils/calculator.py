@@ -2,23 +2,33 @@ import csv
 from pathlib import Path
 
 def cargar_datos_csv():
-    """Carga el dataset de ecoai desde CSV"""
+    """
+    Carga el dataset de ecoai desde CSV en un diccionario anidado.
+    
+    Estructura: 
+        DB[f"{modelo}_{tipo_consulta}"] = [lista de filas con esos datos]
+    
+    Esto permite búsquedas O(1) en lugar de O(n).
+    """
     csv_path = Path(__file__).parent.parent / 'data' / 'ecoai_dataset.csv'
-    datos_raw = []
+    db = {}
     
     try:
         with open(csv_path, 'r', encoding='utf-8') as f:
             reader = csv.DictReader(f)
             for row in reader:
-                datos_raw.append(row)
+                key = f"{row['modelo']}_{row['tipo_consulta']}"
+                if key not in db:
+                    db[key] = []
+                db[key].append(row)
     except FileNotFoundError:
         print(f"Advertencia: No se encontró {csv_path}")
         return {}
     
-    return datos_raw
+    return db
 
 # Cargar datos al iniciar el módulo
-DATOS_RAW = cargar_datos_csv()
+DB = cargar_datos_csv()
 
 def calcular_impacto(modelo, tipo_consulta, cantidad):
     """
@@ -35,11 +45,9 @@ def calcular_impacto(modelo, tipo_consulta, cantidad):
     if not isinstance(cantidad, (int, float)) or cantidad <= 0:
         return "Error: La cantidad debe ser un número positivo"
     
-    # Buscar filas que coincidan con modelo y tipo_consulta
-    filas_coincidentes = [
-        row for row in DATOS_RAW 
-        if row['modelo'] == modelo and row['tipo_consulta'] == tipo_consulta
-    ]
+    # Buscar en el diccionario usando clave modelo_tipo
+    key = f"{modelo}_{tipo_consulta}"
+    filas_coincidentes = DB.get(key, [])
     
     if not filas_coincidentes:
         return f"Combinación no encontrada: {modelo} + {tipo_consulta}"
