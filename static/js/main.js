@@ -101,15 +101,21 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     if (cantidadInput) {
         cantidadInput.addEventListener('input', function() {
+            // Convertir a número entero
+            if (this.value && !isNaN(this.value)) {
+                this.value = Math.floor(Math.abs(parseInt(this.value)));
+            }
             validateForm();
         });
 
         cantidadInput.addEventListener('blur', function() {
             if (this.value) {
-                // Formatear número a 2 decimales si es necesario
-                let num = parseFloat(this.value);
-                if (!isNaN(num)) {
-                    this.value = num.toFixed(2).replace(/\.?0+$/, '');
+                // Asegurar que sea un número entero positivo
+                let num = parseInt(this.value);
+                if (!isNaN(num) && num > 0) {
+                    this.value = num;
+                } else {
+                    this.value = '';
                 }
             }
         });

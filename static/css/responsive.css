@@ -1,0 +1,125 @@
+/* ============================================
+   DISEÑO RESPONSIVO
+   ============================================ */
+
+/* TABLET (768px y menores) */
+@media (max-width: 768px) {
+    .navbar-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .navbar-brand h1 {
+        font-size: 1.5rem;
+    }
+
+    .navbar-nav {
+        gap: 1rem;
+        font-size: 0.95rem;
+    }
+
+    .main-content {
+        padding: 1rem;
+    }
+
+    .welcome-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .welcome-content h2 {
+        font-size: 2rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .calculator-container {
+        padding: 1.5rem;
+    }
+
+    .calculator-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+
+    .btn,
+    .cta-buttons .btn {
+        width: 100%;
+    }
+}
+
+/* MOBILE (480px y menores) */
+@media (max-width: 480px) {
+    .navbar-brand {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+
+    .navbar-brand h1 {
+        font-size: 1.25rem;
+    }
+
+    .tagline {
+        font-size: 0.75rem;
+    }
+
+    .welcome-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .welcome-subtitle {
+        font-size: 1rem;
+    }
+
+    .calculator-container {
+        padding: 1rem;
+    }
+
+    .calculator-container h2 {
+        font-size: 1.25rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .info-card {
+        padding: 1.5rem;
+        padding-left: 3rem;
+    }
+
+    .metric-value {
+        font-size: 1.5rem;
+    }
+
+    .results-grid {
+        gap: 1rem;
+    }
+
+    .result-card {
+        padding: 1.5rem;
+    }
+
+    .summary-row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
