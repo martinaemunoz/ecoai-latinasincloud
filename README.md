@@ -8,7 +8,7 @@
 
 **EcoAI** es una aplicación web desarrollada con **Python** y **Flask** que permite calcular y visualizar el **impacto ambiental del uso de la inteligencia artificial**, expresado en consumo de agua, energía y emisiones de CO₂.
 
-## 🌍 Índice
+## Índice
 1. [Características Principales](#-características-principales)
 2. [Tecnologías Utilizadas](#-tecnologías-utilizadas) 
 3. [Instalación y Configuración](#-instalación-y-configuración)
@@ -21,30 +21,31 @@
 10. [Historias de Usuario](#-historias-de-usuario)
 11. [Contribución](#-contribución)
 12. [Equipo de Desarrollo](#-equipo-de-desarrollo)
+13. [Licencia](#-licencia)
 
 ---
 
-## ✨ Características Principales
+## Características Principales
 
-### 🧮 Calculadora de Impacto Ambiental
+### Calculadora de Impacto Ambiental
 - **Cálculo preciso** del consumo de agua, energía y CO₂ por consultas de IA
 - **Soporte para múltiples modelos**: GPT-4 Turbo, Claude 3 Opus, Gemini 1.5 Pro, Whisper Large V3
 - **Tipos de consulta**: Texto, código, imagen, audio y video
-- **Equivalencias cotidianas**: "Tu consumo equivale a X vasos de agua"
+- **Equivalencias cotidianas**: "Tu consumo equivale a X vasos de agua /  X minutos de luz LED / X km de recorrido en auto"
 
-### 📊 Visualizaciones Interactivas
+### Visualizaciones Interactivas
 - **Gráficos comparativos** entre modelos de IA
 - **Análisis de distribución** energética por tipo de consulta  
 - **Cards dinámicas** con equivalencias ambientales
 - **Proyecciones de uso** acumulado y eficiencia
 
-### 🎨 Interfaz de Usuario Moderna
+### Interfaz de Usuario Moderna
 - **Diseño responsivo** para desktop, tablet y móvil
 - **Smooth scrolling** y animaciones fluidas
 - **Paleta de colores eco-friendly** (verde y azul)
 - **Iconografía intuitiva** con emojis ambientales
 
-### 🔒 Calidad y Confiabilidad
+### Calidad y Confiabilidad
 - **87% de cobertura de tests** con 53 tests automatizados
 - **Validación exhaustiva** de formularios y datos
 - **Manejo robusto de errores** y casos extremos
@@ -52,7 +53,7 @@
 
 ---
 
-## 🛠 Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 ### Backend
 - **Python 3.13** - Lenguaje principal
@@ -79,7 +80,7 @@
 
 ---
 
-## 🚀 Instalación y Configuración
+## Instalación y Configuración
 
 ### Prerrequisitos
 - Python 3.13+ instalado
@@ -130,13 +131,13 @@ pytest tests/test_flask_routes.py -v
 
 ---
 
-## 📱 Uso de la Aplicación
+## Uso de la Aplicación
 
 ### 1. Página Principal
 - **Descripción** del proyecto y su propósito
 - **Formulario** para seleccionar modelo, tipo de consulta y cantidad
 - **Validación** en tiempo real de campos
-- **Información** sobre metodología y fuentes
+- **Información** sobre metodología y fuentes (TO DO)
 
 ### 2. Calculadora de Impacto
 1. **Selecciona un modelo**: GPT-4 Turbo, Claude 3, Gemini 1.5, Whisper Large V3
@@ -158,7 +159,7 @@ pytest tests/test_flask_routes.py -v
 
 ---
 
-## 🏗 Arquitectura del Proyecto
+## Arquitectura del Proyecto
 
 ### Estructura de Directorios
 ```
@@ -258,7 +259,7 @@ pytest tests/test_calculator.py::TestCalcularImpactoValidInput -v
 
 ---
 
-## 🎨 Estructura de CSS Modular
+## Estructura de CSS Modular
 
 ### Filosofía de Diseño
 El CSS está dividido en **13 módulos especializados** para mejorar mantenibilidad y escalabilidad:
@@ -296,14 +297,6 @@ responsive.css   /* Media queries */
 | `--text-dark` | #1f2937 | Texto principal |
 | `--text-light` | #6b7280 | Texto secundario |
 
-### Sistema de Sombras
-```css
---shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05)     /* Elementos sutiles */
---shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07)     /* Cards normales */
---shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1)    /* Elementos importantes */
---shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15)   /* Modales, dropdowns */
-```
-
 ### Breakpoints Responsive
 - **Desktop**: 1200px+
 - **Tablet**: ≤768px 
@@ -311,7 +304,7 @@ responsive.css   /* Media queries */
 
 ---
 
-## 📊 Implementación de Gráficos
+## Implementación de Gráficos
 
 ### Chart.js Integration
 EcoAI utiliza **Chart.js 4.4+** para visualizaciones interactivas:
@@ -320,37 +313,37 @@ EcoAI utiliza **Chart.js 4.4+** para visualizaciones interactivas:
 
 #### 1. Comparación por Modelo (Bar Chart)
 ```javascript
-// Agua, energía y CO₂ por cada modelo de IA
+// agua, energía y CO₂ por cada modelo de IA
 initModelComparisonChart(chartData)
 ```
 
 #### 2. Distribución por Tipo (Radar Chart)  
 ```javascript
-// Impacto relativo de texto, código, imagen, audio, video
+// impacto relativo de texto, código, imagen, audio, video
 initQueryTypeChart(chartData)
 ```
 
 #### 3. Distribución Energética (Pie Chart)
 ```javascript
-// Porcentaje de energía consumida por tipo de consulta
+// % de energía consumida por tipo de consulta
 initEnergyDistributionChart(chartData)
 ```
 
 #### 4. Equivalencias Visuales (Cards HTML)
 ```javascript
-// Cards dinámicas con iconos y equivalencias
+// cards dinámicas con iconos y equivalencias
 updateEquivalenceCards(chartData)
 ```
 
 #### 5. Impacto Acumulado (Line Chart)
 ```javascript
-// Proyección de consumo: 1, 10, 100, 1K, 10K consultas
+// proyección de consumo: 1, 10, 100, 1K, 10K consultas
 initCumulativeImpactChart(chartData)
 ```
 
 #### 6. Índice de Eficiencia (Horizontal Bar)
 ```javascript
-// Ranking de eficiencia ambiental por modelo
+// ranking de eficiencia ambiental por modelo
 initEfficiencyIndexChart(chartData)
 ```
 
@@ -387,7 +380,7 @@ const COLOR_PALETTE = {
 
 ---
 
-## 🛣 API y Endpoints
+## API y Endpoints
 
 ### Rutas Principales
 
@@ -437,9 +430,9 @@ resultado = {
 
 ---
 
-## 👥 Historias de Usuario
+## Historias de Usuario
 
-### HU1 — Calcular impacto ambiental ✅
+### HU1 — Calcular impacto ambiental 
 > *Como usuaria curiosa del impacto ecológico de la IA, quiero ingresar mis datos de uso (tipo de modelo y número de consultas) para conocer cuánta agua y energía se consume en promedio.*
 
 **Criterios de aceptación:**
@@ -483,7 +476,7 @@ resultado = {
 
 ---
 
-## 🤝 Contribución
+## Contribución
 
 ### Cómo Contribuir
 1. **Fork** el repositorio
@@ -518,8 +511,8 @@ docs(readme): actualizar documentación de instalación
 - ✅ Todos los tests deben pasar
 
 ### Próximas Mejoras
-- [ ] **Implementar gráficos Chart.js** (prioridad alta)
-- [ ] **Completar endpoint /comparativo** 
+- [✅] **Implementar gráficos Chart.js** (prioridad alta)
+- [✅] **Completar endpoint /comparativo** 
 - [ ] **Mejorar cobertura de tests** al 95%
 - [ ] **Agregar tests de rendimiento**
 - [ ] **Implementar caché de datos**
@@ -532,50 +525,8 @@ docs(readme): actualizar documentación de instalación
 ## 👩‍💻 Equipo de Desarrollo
 
 ### Desarrolladoras Principales
-- **🌟 Estrella Alberto** - Data Science & Backend
-- **🔧 Clara Angulo** - Frontend & UX/UI  
-- **💻 Martina Muñoz** - Full Stack & DevOps
-- **🧪 Isidora Zapata** - QA & Testing
-
-### Roles y Responsabilidades
-
-#### Data Science & Backend (Estrella)
-- 📊 Curación y validación del dataset CSV
-- ⚙️ Lógica de cálculos ambientales
-- 🔍 Análisis de datos y métricas
-- 📈 Implementación de algoritmos
-
-#### Frontend & UX/UI (Clara)  
-- 🎨 Diseño de interfaz y experiencia de usuario
-- 🖼️ Prototipado en Figma
-- 💅 Implementación de CSS modular
-- 📱 Diseño responsivo
-
-#### Full Stack & DevOps (Martina)
-- 🏗️ Arquitectura Flask y estructura del proyecto
-- 🔗 Integración frontend-backend
-- 🛠️ Configuración de herramientas de desarrollo
-- 🚀 Deploy y documentación
-
-#### QA & Testing (Isidora)
-- 🧪 Diseño y implementación de tests
-- ✅ Aseguramiento de calidad
-- 📋 Documentación de casos de uso
-- 🐛 Debugging y resolución de issues
-
-### Metodología de Trabajo
-- **Scrum adaptado** con sprints de 1 semana
-- **Daily standups** virtuales
-- **Code reviews** obligatorios
-- **Pair programming** para features complejas
-- **Documentación continua**
-
-### Contacto
-- **Repositorio**: [github.com/martinaemunoz/ecoai-latinasincloud](https://github.com/martinaemunoz/ecoai-latinasincloud)
-- **Issues**: Para reportar bugs o solicitar features
-- **Discussions**: Para preguntas y propuestas
-
----
+- **🌟 Estrella Alberto** - Data Science & UX/UI
+- **💻 Martina Muñoz** - Backend, Testing, DevOps
 
 ## 📄 Licencia
 
