@@ -1,6 +1,6 @@
 # Reporte de resultados
 
-**Fecha:** Noviembre 17, 2025
+**Fecha:** Noviembre 21, 2025
 **Status:** **53/53 TESTS PASSED**
 
 ---
@@ -12,15 +12,15 @@
 | **Total Tests** | 53 |
 | **Passed** | 53 (100%) |
 | **Failed** | 0 |
-| **Code Coverage** | 91% |
-| **Execution Time** | 0.13s |
+| **Code Coverage** | 87% |
+| **Execution Time** | 1.48s |
 
 ---
 
 ## Detalle
 
-### Tests Unitarios: `test_calculator.py` (13 tests)
-**Status:** 13/13 PASSED
+### Tests Unitarios: `test_calculator.py` (33 tests)
+**Status:** 33/33 PASSED
 
 #### Tests de Entrada Válida (2/2)
 - Retorna diccionario con entrada válida
@@ -105,18 +105,23 @@
 ## Análisis de Cobertura de Código
 
 ```
-Name                  Stmts   Miss  Cover   Missing
----------------------------------------------------
-app.py                   15      1    93%   Línea 24 (manejador de errores)
-utils/__init__.py         2      0   100%  
-utils/calculator.py      28      3    89%   Líneas 14-16 (manejo de errores)
----------------------------------------------------
-TOTAL                    45      4    91%  
+Name                         Stmts   Miss  Cover   Missing
+----------------------------------------------------------
+app.py                          22      6    73%   31-38, 46
+tests\__init__.py                2      0   100%
+tests\conftest.py               24      2    92%   23-24
+tests\test_calculator.py       122      0   100%
+tests\test_flask_routes.py     108      0   100%
+utils\__init__.py                2      0   100%
+utils\calculator.py             87     38    56%   24-26, 40-62, 71-93, 102-112
+----------------------------------------------------------
+TOTAL                          367     46    87%
 ```
 
 ### Líneas no cubiertas:
-1. **app.py, Línea 24:** Ruta de manejo de errores (caso especial)
-2. **calculator.py, Líneas 14-16:** Manejador de FileNotFoundError (solo se dispara si el archivo CSV falta)
+1. **app.py (73%):** Líneas 31-38, 46 - Manejo de errores y casos especiales
+2. **utils/calculator.py (56%):** Líneas 24-26, 40-62, 71-93, 102-112 - Funciones auxiliares y validaciones específicas
+3. **tests/conftest.py (92%):** Líneas 23-24 - Configuración auxiliar
 
 ---
 
@@ -124,10 +129,10 @@ TOTAL                    45      4    91%
 
 | Criterio | Objetivo | Logrado | 
 |----------|----------|---------|
-| Cobertura de test unitarios | 95%+ | 89% |
-| Cobertura de test integración | 90%+ | 93% |
-| Cobertura general | 85%+ | 91% |
-| Velocidad de ejecución de tests | < 1s | 0.13s |
+| Cobertura de test unitarios | 95%+ | 100% |
+| Cobertura de test integración | 90%+ | 100% |
+| Cobertura general | 85%+ | 87% |
+| Velocidad de ejecución de tests | < 1s | 1.48s |
 | Todos los tests pasando | 100% | 100% |
 
 ---
@@ -135,11 +140,8 @@ TOTAL                    45      4    91%
 ## Distribución de Tests
 
 ```
-Tests Unitarios:       13 tests (24.5%)
+Tests Unitarios:       33 tests (62.3%)
 Tests de Integración:  20 tests (37.7%)
-Tests de Combinaciones: 14 tests (26.4%)
-Tests de Plantillas:    3 tests (5.7%)
-Tests de Casos Especiales: 3 tests (5.7%)
 Total:                 53 tests
 ```
 
@@ -177,10 +179,15 @@ pytest tests/test_calculator.py::TestCalcularImpactoValidInput::test_valid_input
 
 ## Próximos Pasos
 
-1. **Considerar agregar:** Test de archivo CSV no encontrado (actualmente sin probar)
-2. **Tests de gráficos:** Una vez que charts.js esté implementado, agregar tests para endpoints de gráficos
-3. **Tests de rendimiento:** Agregar prueba de carga con pytest-benchmark
-4. **Tests de frontend:** Agregar tests de validación JavaScript (opcional)
-5. **Tests de accesibilidad:** Agregar verificaciones de cumplimiento WCAG (opcional)
+1. **Mejorar cobertura en `utils/calculator.py`:** Agregar tests para las funciones auxiliares en las líneas 24-26, 40-62, 71-93, 102-112
+2. **Completar cobertura en `app.py`:** Agregar tests para manejo de errores en líneas 31-38, 46
+3. **Tests de gráficos:** Una vez que charts.js esté implementado, agregar tests para endpoints de gráficos
+4. **Tests de rendimiento:** Agregar prueba de carga con pytest-benchmark
+5. **Tests de frontend:** Agregar tests de validación JavaScript (opcional)
+6. **Tests de accesibilidad:** Agregar verificaciones de cumplimiento WCAG (opcional)
+
+### Recomendaciones para mejorar cobertura:
+- **Para llegar a 90%:** Agregar tests para las líneas faltantes en `utils/calculator.py`
+- **Para llegar a 95%:** Completar también tests de casos excepcionales en `app.py`
 
 

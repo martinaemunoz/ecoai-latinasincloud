@@ -1,6 +1,6 @@
 /**
- * EcoAI - Main JavaScript
- * Maneja interactividad del formulario, validación y dinámicas de UI
+ * main js
+ * maneja interactividad, validación y dinámicas ui
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cantidadUnit = document.getElementById('cantidadUnit');
     const formError = document.getElementById('formError');
 
-    // Mapeo de descripciones y unidades por tipo de consulta
+    // mapeo de descripciones y unidades por tipo de consulta
     const queryTypeConfig = {
         texto: {
             hint: 'Número de consultas de texto simple',
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================
 
     /**
-     * Modelo change - Habilitar tipo si modelo está seleccionado
+     * modelo change - habilitar tipo si modelo está seleccionado
      */
     if (modeloSelect) {
         modeloSelect.addEventListener('change', function() {
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /**
-     * Tipo de consulta change - Actualizar UI dinámicamente
+     * tipo de consulta habilita input y actualiza UI dinámicamente
      */
     if (tipoSelect) {
         tipoSelect.addEventListener('change', function() {
@@ -69,21 +69,21 @@ document.addEventListener('DOMContentLoaded', function() {
             if (tipoValue && queryTypeConfig[tipoValue]) {
                 const config = queryTypeConfig[tipoValue];
                 
-                // Actualizar hint
+                // actualizar hint
                 typeHint.textContent = config.hint;
                 typeHint.style.color = 'var(--text-light)';
                 
-                // Actualizar label
+                // actualizar label
                 cantidadLabel.textContent = config.label;
-                
-                // Actualizar unidad
+
+                // actualizar unidad
                 cantidadUnit.textContent = config.unit;
                 
-                // Habilitar input de cantidad
+                // habilitar input de cantidad
                 cantidadInput.disabled = false;
                 cantidadInput.focus();
             } else {
-                // Reset si no hay valor seleccionado
+                // reset si no hay valor seleccionado
                 typeHint.textContent = 'Selecciona un tipo de consulta primero';
                 typeHint.style.color = 'var(--text-light)';
                 cantidadLabel.textContent = 'Cantidad';
@@ -97,11 +97,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /**
-     * Cantidad input - Validación en tiempo real
+     * cantidad input - validación en tiempo real
      */
     if (cantidadInput) {
         cantidadInput.addEventListener('input', function() {
-            // Convertir a número entero
+            // convertir a número entero
             if (this.value && !isNaN(this.value)) {
                 this.value = Math.floor(Math.abs(parseInt(this.value)));
             }
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         cantidadInput.addEventListener('blur', function() {
             if (this.value) {
-                // Asegurar que sea un número entero positivo
+                // asegurar que sea un número entero positivo
                 let num = parseInt(this.value);
                 if (!isNaN(num) && num > 0) {
                     this.value = num;
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /**
-     * Form submit
+     * form submit
      */
     if (form) {
         form.addEventListener('submit', function(e) {
@@ -138,24 +138,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================
 
     /**
-     * Validar formulario y habilitar/deshabilitar botón submit
+     * validar formulario y habilitar/deshabilitar botón submit
      */
     function validateForm() {
         const modeloValue = modeloSelect.value.trim();
         const tipoValue = tipoSelect.value.trim();
         const cantidadValue = cantidadInput.value.trim();
 
-        // Validaciones
+        // validaciones
         const isModeloValid = modeloValue.length > 0;
         const isTipoValid = tipoValue.length > 0;
         const isCantidadValid = cantidadValue.length > 0 && 
                                 !isNaN(cantidadValue) && 
                                 parseFloat(cantidadValue) > 0;
 
-        // Habilitar botón submit si todos los campos son válidos
+        // habilitar botón submit si todos los campos son válidos
         submitBtn.disabled = !(isModeloValid && isTipoValid && isCantidadValid);
 
-        // Limpiar error al empezar a escribir
+        // limpiar error al empezar a escribir
         if (formError.textContent) {
             formError.classList.add('hidden');
             formError.textContent = '';
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /**
-     * Mostrar mensaje de error
+     * mostrar mensaje de error
      */
     function showError(message) {
         formError.textContent = message;
@@ -184,7 +184,47 @@ document.addEventListener('DOMContentLoaded', function() {
     // SMOOTH SCROLL PARA ANCHORS
     // ========================================
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    // Scroll específico para "¿Cómo funciona?" (#info)
+    document.querySelectorAll('a[href="#info"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector('#info');
+            
+            if (target) {
+                // Obtener altura del navbar para ajustar el scroll
+                const navbar = document.querySelector('.navbar');
+                const navbarHeight = navbar ? navbar.offsetHeight : 0;
+                
+                // Calcular posición ajustada para mostrar el título completo
+                const targetPosition = target.offsetTop - navbarHeight + 50;
+                
+                // Scroll suave a la posición ajustada
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Scroll específico para "Comenzar Cálculo" (#calculator)
+    document.querySelectorAll('a[href="#calculator"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector('#calculator');
+            
+            if (target) {
+                // Para el botón "Comenzar Cálculo", usar scroll normal sin ajuste extra
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Scroll genérico para otros enlaces de anclaje (si los hay)
+    document.querySelectorAll('a[href^="#"]:not([href="#info"]):not([href="#calculator"])').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             if (href !== '#' && document.querySelector(href)) {
