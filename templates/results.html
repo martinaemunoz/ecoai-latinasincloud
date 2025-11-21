@@ -1,27 +1,108 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="results-container">
-	<p><a href="{{ url_for('index') }}">← Volver</a></p>
-	<h2>Resultados del Cálculo</h2>
+<section class="results-section">
+    <div class="results-container">
+        <a href="{{ url_for('index') }}" class="back-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Volver a inicio
+        </a>
 
-	{% if resultado is string %}
-		<div class="error-message">
-			<p>{{ resultado }}</p>
-		</div>
-	{% elif resultado is mapping %}
-		<div class="result-card">
-			<p><strong>Modelo:</strong> {{ resultado.modelo }}</p>
-			<p><strong>Tipo de consulta:</strong> {{ resultado.tipo_consulta|capitalize }}</p>
-			<p><strong>Cantidad:</strong> {{ resultado.cantidad }}</p>
-			<ul>
-				<li><strong>Agua (L):</strong> {{ resultado.agua }} — {{ resultado.eq_agua }}</li>
-				<li><strong>Energía (kWh):</strong> {{ resultado.energia }} — {{ resultado.eq_energia }}</li>
-				<li><strong>CO₂ (kg):</strong> {{ resultado.co2 }} — {{ resultado.eq_co2 }}</li>
-			</ul>
-		</div>
-	{% else %}
-		<p>No hay resultado válido para mostrar.</p>
-	{% endif %}
-</div>
+        {% if resultado is string %}
+            <!-- Error State -->
+            <div class="error-container">
+                <div class="error-icon">⚠️</div>
+                <h2>Oops, algo salió mal</h2>
+                <p class="error-message">{{ resultado }}</p>
+                <a href="{{ url_for('index') }}" class="btn btn-primary">Intentar de nuevo</a>
+            </div>
+
+        {% elif resultado is mapping %}
+            <!-- Success State -->
+            <div class="success-container">
+                <h2>Tu Impacto Ambiental</h2>
+                
+                <!-- Results Grid -->
+                <div class="results-grid">
+                    <!-- Water Impact Card -->
+                    <div class="result-card water-card">
+                        <div class="card-header">
+                            <span class="metric-icon">💧</span>
+                            <h3>Consumo de Agua</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="metric-value">{{ resultado.agua }} <span class="metric-unit">L</span></div>
+                            <div class="metric-equivalence">{{ resultado.eq_agua }}</div>
+                        </div>
+                    </div>
+
+                    <!-- Energy Impact Card -->
+                    <div class="result-card energy-card">
+                        <div class="card-header">
+                            <span class="metric-icon">⚡</span>
+                            <h3>Consumo de Energía</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="metric-value">{{ resultado.energia }} <span class="metric-unit">kWh</span></div>
+                            <div class="metric-equivalence">{{ resultado.eq_energia }}</div>
+                        </div>
+                    </div>
+
+                    <!-- Carbon Impact Card -->
+                    <div class="result-card carbon-card">
+                        <div class="card-header">
+                            <span class="metric-icon">🌍</span>
+                            <h3>Emisiones de CO₂</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="metric-value">{{ resultado.co2 }} <span class="metric-unit">g</span></div>
+                            <div class="metric-equivalence">{{ resultado.eq_co2 }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Card -->
+                <div class="summary-card">
+                    <h3>Resumen de tu Consulta</h3>
+                    <div class="summary-details">
+                        <div class="summary-row">
+                            <span class="summary-label">Modelo:</span>
+                            <span class="summary-value">{{ resultado.modelo }}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Tipo de Consulta:</span>
+                            <span class="summary-value">{{ resultado.tipo_consulta|capitalize }}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Cantidad:</span>
+                            <span class="summary-value">{{ resultado.cantidad_formateada }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Llamada a la Acción -->
+                <div class="cta-section">
+                    <h3>¿Qué sigue?</h3>
+                    <div class="cta-buttons">
+                        <a href="{{ url_for('index') }}" class="btn btn-primary">Calcular de nuevo</a>
+                        <a href="{{ url_for('comparativo') }}" class="btn btn-secondary">Ver comparativa</a>
+                    </div>
+                </div>
+            </div>
+
+        {% else %}
+            <!-- No Results State -->
+            <div class="empty-state">
+                <div class="empty-icon">📊</div>
+                <h2>Sin resultados</h2>
+                <p>No hay datos disponibles para mostrar. Por favor, regresa e intenta de nuevo.</p>
+                <a href="{{ url_for('index') }}" class="btn btn-primary">Volver al inicio</a>
+            </div>
+
+        {% endif %}
+    </div>
+</section>
+
 {% endblock %}

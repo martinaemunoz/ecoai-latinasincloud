@@ -20,10 +20,10 @@ ecoai/
 
 ### Tarea 1: Actualizar `app.py`
 **Ubicación:** `app.py`
-**Acción:** Agregar una nueva ruta `@app.route('/charts')` que renderice `results_charts.html`
+**Acción:** Agregar una nueva ruta `@app.route('/comparativo')` que renderice `results_charts.html`
 
 ```python
-@app.route('/charts')
+@app.route('/comparativo')
 def charts():
     # Aquí debes pasar datos al template
     # 1. Cargar datos del CSV

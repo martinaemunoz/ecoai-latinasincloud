@@ -76,13 +76,75 @@ function initModelComparisonChart(chartData) {
     const ctx = document.getElementById('modelComparisonChart');
     if (!ctx) return; // Si el elemento no existe, salir
     
-    // TODO: Implementar lógica aquí
-    // 1. Extraer datos de chartData.modelStats
-    // 2. Crear arrays para agua, energía, carbono
-    // 3. Renderizar gráfico con Chart.js
+    // Extraer datos de chartData.modelStats
+    const models = chartData.models;
+    const waterData = models.map(modelo => chartData.modelStats[modelo].agua);
+    const energyData = models.map(modelo => chartData.modelStats[modelo].energia);
+    const carbonData = models.map(modelo => chartData.modelStats[modelo].carbono);
     
-    console.log('📊 Gráfico 1: Comparación por modelo - IMPLEMENTAR');
-    console.log('Datos disponibles:', chartData.modelStats);
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: models,
+            datasets: [
+                {
+                    label: 'Agua (L)',
+                    data: waterData,
+                    backgroundColor: COLOR_PALETTE.agua,
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Energía (kWh)',
+                    data: energyData,
+                    backgroundColor: COLOR_PALETTE.energia,
+                    borderColor: 'rgba(255, 206, 86, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Carbono (gCO2e)',
+                    data: carbonData,
+                    backgroundColor: COLOR_PALETTE.carbono,
+                    borderColor: 'rgba(75, 192, 75, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        padding: 15,
+                        font: { size: 12 }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            label += context.parsed.y.toFixed(2);
+                            return label;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return value.toFixed(2);
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 // ============================================================================
@@ -110,14 +172,61 @@ function initQueryTypeChart(chartData) {
     const ctx = document.getElementById('queryTypeChart');
     if (!ctx) return;
     
-    // TODO: Implementar lógica aquí
-    // 1. Calcular impacto total por tipo de consulta
-    // 2. Normalizar a escala 0-100
-    // 3. Crear dataset para radar
-    // 4. Renderizar gráfico
+    // Calcular impacto total por tipo de consulta
+    const queryTypes = chartData.queryTypes;
+    const impacts = queryTypes.map(type => {
+        const stats = chartData.queryTypeStats[type];
+        return stats.agua + stats.energia + stats.carbono;
+    });
     
-    console.log('🎯 Gráfico 2: Impacto por tipo - IMPLEMENTAR');
-    console.log('Datos disponibles:', chartData.queryTypeStats);
+    // Normalizar a escala 0-100
+    const normalized = normalizeToScale(impacts);
+    
+    new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: queryTypes,
+            datasets: [{
+                label: 'Impacto Ambiental Total',
+                data: normalized,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 2,
+                pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        padding: 15,
+                        font: { size: 12 }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return 'Impacto (normalizado): ' + context.parsed.r.toFixed(2);
+                        }
+                    }
+                }
+            },
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        stepSize: 20
+                    }
+                }
+            }
+        }
+    });
 }
 
 // ============================================================================
@@ -147,14 +256,46 @@ function initEnergyDistributionChart(chartData) {
     const ctx = document.getElementById('energyDistributionChart');
     if (!ctx) return;
     
-    // TODO: Implementar lógica aquí
-    // 1. Calcular energía total por tipo de consulta
-    // 2. Calcular porcentajes
-    // 3. Crear dataset para pie/doughnut
-    // 4. Renderizar gráfico
+    // Calcular energía total por tipo de consulta
+    const queryTypes = chartData.queryTypes;
+    const energyByType = queryTypes.map(type => chartData.queryTypeStats[type].energia);
+    const totalEnergy = energyByType.reduce((a, b) => a + b, 0);
+    const percentages = energyByType.map(e => (e / totalEnergy) * 100);
     
-    console.log('⚡ Gráfico 3: Distribución energética - IMPLEMENTAR');
-    console.log('Datos disponibles:', chartData.queryTypeStats);
+    // Obtener colores para cada tipo
+    const colors = queryTypes.map(type => COLOR_PALETTE.queryTypes[type]);
+    
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: queryTypes,
+            datasets: [{
+                data: percentages,
+                backgroundColor: colors,
+                borderColor: '#fff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        padding: 15,
+                        font: { size: 12 }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.label + ': ' + context.parsed.toFixed(1) + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 // ============================================================================
@@ -196,14 +337,47 @@ function updateEquivalenceCards(chartData) {
     const container = document.getElementById('equivalenceCards');
     if (!container) return;
     
-    // TODO: Implementar lógica aquí
-    // 1. Tomar primer modelo (o hacer dinámico con selector)
-    // 2. Crear HTML para 3 cards (agua, energía, carbono)
-    // 3. Llenar con datos de eq_agua, eq_energia, eq_co2
-    // 4. Insertar en el container
+    // Tomar el primer modelo como referencia
+    const primerModelo = chartData.models[0];
+    const stats = chartData.modelStats[primerModelo];
     
-    console.log('💡 Gráfico 4: Equivalencias - IMPLEMENTAR');
-    console.log('Datos disponibles:', chartData.modelStats);
+    // Calcular equivalencias
+    const vasos = (stats.agua / 0.25).toFixed(2);
+    const botellas = (stats.agua / 0.5).toFixed(2);
+    const duchas = (stats.agua / 75).toFixed(4);
+    
+    const minutosLED = (stats.energia * 16.67).toFixed(2);
+    
+    const kmAuto = (stats.carbono / 120).toFixed(5);
+    
+    const html = `
+        <div class="equivalence-card" style="background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center;">
+            <div class="card-icon" style="font-size: 3rem; margin-bottom: 0.5rem;">💧</div>
+            <h4 style="margin: 0.5rem 0; color: #333;">Agua</h4>
+            <p class="value" style="font-size: 1.5rem; font-weight: bold; margin: 0.5rem 0; color: #36a2eb;">${stats.agua.toFixed(2)} L</p>
+            <p class="equivalence" style="font-size: 0.9rem; color: #666; margin: 0.5rem 0;">
+                ${vasos} vasos / ${botellas} botellas de 500ml / ${duchas} duchas
+            </p>
+        </div>
+        <div class="equivalence-card" style="background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center;">
+            <div class="card-icon" style="font-size: 3rem; margin-bottom: 0.5rem;">⚡</div>
+            <h4 style="margin: 0.5rem 0; color: #333;">Energía</h4>
+            <p class="value" style="font-size: 1.5rem; font-weight: bold; margin: 0.5rem 0; color: #ffce56;">${stats.energia.toFixed(2)} kWh</p>
+            <p class="equivalence" style="font-size: 0.9rem; color: #666; margin: 0.5rem 0;">
+                ${minutosLED} minutos de ampolleta LED
+            </p>
+        </div>
+        <div class="equivalence-card" style="background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center;">
+            <div class="card-icon" style="font-size: 3rem; margin-bottom: 0.5rem;">🌍</div>
+            <h4 style="margin: 0.5rem 0; color: #333;">Carbono</h4>
+            <p class="value" style="font-size: 1.5rem; font-weight: bold; margin: 0.5rem 0; color: #4bc04b;">${stats.carbono.toFixed(2)} g CO₂</p>
+            <p class="equivalence" style="font-size: 0.9rem; color: #666; margin: 0.5rem 0;">
+                ${kmAuto} km en auto
+            </p>
+        </div>
+    `;
+    
+    container.innerHTML = html;
 }
 
 // ============================================================================
@@ -243,15 +417,89 @@ function initCumulativeImpactChart(chartData) {
     const selectedModel = document.getElementById('cumulativeModel')?.value || 'GPT-4 Turbo';
     const selectedQueryType = document.getElementById('cumulativeQueryType')?.value || 'texto';
     
-    // TODO: Implementar lógica aquí
-    // 1. Obtener datos base para modelo + tipo seleccionado
-    // 2. Crear arrays de cantidades [1, 10, 100, 1000, 10000]
-    // 3. Multiplicar por cantidad para cada métrica
-    // 4. Crear 3 datasets (agua, energía, carbono)
-    // 5. Renderizar gráfico de línea
+    // Obtener datos base para modelo + tipo seleccionado
+    const baseStats = chartData.queryTypeStats[selectedQueryType];
     
-    console.log('📈 Gráfico 5: Impacto acumulado - IMPLEMENTAR');
-    console.log('Modelo:', selectedModel, 'Tipo:', selectedQueryType);
+    if (!baseStats) {
+        console.error('No se encontraron datos para:', selectedModel, selectedQueryType);
+        return;
+    }
+    
+    // Crear arrays de cantidades para proyección
+    const quantities = [1, 10, 100, 1000, 10000];
+    const waterData = quantities.map(q => (baseStats.agua * q).toFixed(2));
+    const energyData = quantities.map(q => (baseStats.energia * q).toFixed(2));
+    const carbonData = quantities.map(q => (baseStats.carbono * q).toFixed(2));
+    
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: quantities.map(q => q + ' consultas'),
+            datasets: [
+                {
+                    label: 'Agua (L)',
+                    data: waterData,
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4
+                },
+                {
+                    label: 'Energía (kWh)',
+                    data: energyData,
+                    borderColor: 'rgba(255, 206, 86, 1)',
+                    backgroundColor: 'rgba(255, 206, 86, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4
+                },
+                {
+                    label: 'Carbono (gCO2e)',
+                    data: carbonData,
+                    borderColor: 'rgba(75, 192, 75, 1)',
+                    backgroundColor: 'rgba(75, 192, 75, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        padding: 15,
+                        font: { size: 12 }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            label += context.parsed.y;
+                            return label;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return value.toFixed(0);
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 // ============================================================================
@@ -286,15 +534,75 @@ function initEfficiencyIndexChart(chartData) {
     const ctx = document.getElementById('efficiencyIndexChart');
     if (!ctx) return;
     
-    // TODO: Implementar lógica aquí
-    // 1. Iterar sobre chartData.models
-    // 2. Calcular score de eficiencia para cada modelo
-    // 3. Ordenar modelos por score (mayor a menor)
-    // 4. Crear dataset para bar chart horizontal
-    // 5. Renderizar gráfico
+    // Calcular score de eficiencia para cada modelo
+    const models = chartData.models;
+    const efficiencyScores = models.map(model => {
+        const stats = chartData.modelStats[model];
+        const total = stats.agua + stats.energia + stats.carbono;
+        return {
+            modelo: model,
+            score: 100 / total
+        };
+    });
     
-    console.log('🌿 Gráfico 6: Índice de eficiencia - IMPLEMENTAR');
-    console.log('Datos disponibles:', chartData.modelStats);
+    // Ordenar por score (mayor a menor eficiencia)
+    efficiencyScores.sort((a, b) => b.score - a.score);
+    
+    // Extraer etiquetas y scores ordenados
+    const sortedModels = efficiencyScores.map(e => e.modelo);
+    const sortedScores = efficiencyScores.map(e => e.score);
+    
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: sortedModels,
+            datasets: [{
+                label: 'Índice de Eficiencia Ambiental',
+                data: sortedScores,
+                backgroundColor: sortedScores.map(score => {
+                    if (score > 40) return 'rgba(75, 192, 75, 0.7)';
+                    if (score > 30) return 'rgba(255, 206, 86, 0.7)';
+                    return 'rgba(255, 99, 132, 0.7)';
+                }),
+                borderColor: sortedScores.map(score => {
+                    if (score > 40) return 'rgba(75, 192, 75, 1)';
+                    if (score > 30) return 'rgba(255, 206, 86, 1)';
+                    return 'rgba(255, 99, 132, 1)';
+                }),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        padding: 15,
+                        font: { size: 12 }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return 'Score: ' + context.parsed.x.toFixed(2);
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return value.toFixed(0);
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 // ============================================================================
