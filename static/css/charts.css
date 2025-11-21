@@ -21,6 +21,8 @@
     color: var(--text-light);
     margin-bottom: 3rem;
     font-size: 1.1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 /* ============================================

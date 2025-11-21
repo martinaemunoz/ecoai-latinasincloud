@@ -11,7 +11,7 @@
         </a>
 
         {% if resultado is string %}
-            <!-- Error State -->
+            <!-- error state -->
             <div class="error-container">
                 <div class="error-icon">⚠️</div>
                 <h2>Oops, algo salió mal</h2>
@@ -20,17 +20,17 @@
             </div>
 
         {% elif resultado is mapping %}
-            <!-- Success State -->
+            <!-- success state -->
             <div class="success-container">
-                <h2>Tu Impacto Ambiental</h2>
-                
-                <!-- Results Grid -->
+                <h2>Tu Impacto Ambiental en Equivalencias</h2>
+                <p class="subtitle">¿Qué significa en términos reales el impacto de tus consultas a la IA?</p>
+                <!-- grid de resultados -->
                 <div class="results-grid">
-                    <!-- Water Impact Card -->
+                    <!-- impacto del agua -->
                     <div class="result-card water-card">
                         <div class="card-header">
                             <span class="metric-icon">💧</span>
-                            <h3>Consumo de Agua</h3>
+                            <h3>Agua</h3>
                         </div>
                         <div class="card-content">
                             <div class="metric-value">{{ resultado.agua }} <span class="metric-unit">L</span></div>
@@ -38,11 +38,11 @@
                         </div>
                     </div>
 
-                    <!-- Energy Impact Card -->
+                    <!-- impacto de la energía -->
                     <div class="result-card energy-card">
                         <div class="card-header">
                             <span class="metric-icon">⚡</span>
-                            <h3>Consumo de Energía</h3>
+                            <h3>Energía</h3>
                         </div>
                         <div class="card-content">
                             <div class="metric-value">{{ resultado.energia }} <span class="metric-unit">kWh</span></div>
@@ -50,11 +50,11 @@
                         </div>
                     </div>
 
-                    <!-- Carbon Impact Card -->
+                    <!-- impacto del co2 -->
                     <div class="result-card carbon-card">
                         <div class="card-header">
                             <span class="metric-icon">🌍</span>
-                            <h3>Emisiones de CO₂</h3>
+                            <h3>Carbono</h3>
                         </div>
                         <div class="card-content">
                             <div class="metric-value">{{ resultado.co2 }} <span class="metric-unit">g</span></div>
@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                <!-- Summary Card -->
+                <!-- resumen de la consulta -->
                 <div class="summary-card">
                     <h3>Resumen de tu Consulta</h3>
                     <div class="summary-details">
@@ -82,7 +82,7 @@
                     </div>
                 </div>
 
-                <!-- Llamada a la Acción -->
+                <!-- what's next -->
                 <div class="cta-section">
                     <h3>¿Qué sigue?</h3>
                     <div class="cta-buttons">
@@ -93,7 +93,7 @@
             </div>
 
         {% else %}
-            <!-- No Results State -->
+            <!-- empty state -->
             <div class="empty-state">
                 <div class="empty-icon">📊</div>
                 <h2>Sin resultados</h2>

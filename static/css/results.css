@@ -1,5 +1,5 @@
 /* ============================================
-   SECCIÓN DE RESULTADOS
+   sección resultados
    ============================================ */
 
 .results-section {
@@ -39,8 +39,17 @@
     font-size: 2rem;
     font-weight: 700;
     color: var(--text-dark);
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
     text-align: center;
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 1.1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
 .error-icon,
@@ -71,7 +80,7 @@
 }
 
 /* ============================================
-   GRID DE RESULTADOS
+   grid resultados
    ============================================ */
 
 .results-grid {
@@ -104,18 +113,20 @@
 }
 
 .carbon-card {
-    border-top: 4px solid #ef4444;
+    border-top: 4px solid #46fd83;
 }
 
 .card-header {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .metric-icon {
-    font-size: 2rem;
+    font-size: 3rem;
+    display: block;
 }
 
 .card-header h3 {
@@ -132,8 +143,19 @@
 .metric-value {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--text-dark);
     margin-bottom: 0.5rem;
+}
+
+.water-card .metric-value {
+    color: #3b82f6; 
+}
+
+.energy-card .metric-value {
+    color: #f59e0b; 
+}
+
+.carbon-card .metric-value {
+    color: #10b981; 
 }
 
 .metric-unit {
@@ -145,11 +167,10 @@
 .metric-equivalence {
     font-size: 0.95rem;
     color: var(--text-light);
-    font-style: italic;
 }
 
 /* ============================================
-   SUMMARY CARD
+   card resumen
    ============================================ */
 
 .summary-card {
@@ -196,7 +217,7 @@
 }
 
 /* ============================================
-   CTA SECTION
+   sección call to action
    ============================================ */
 
 .cta-section {

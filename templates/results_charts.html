@@ -94,40 +94,7 @@
     </div>
 
     <!-- ===============================================
-         GRÁFICO 4: Equivalencias visuales (Cards + infografías)
-         ===============================================
-         
-         INSTRUCCIONES PARA IMPLEMENTAR:
-         - Tipo: NO es un gráfico Chart.js clásico
-         - Descripción: Cards interactivas que muestren equivalencias ambientales
-         - Formato sugerido:
-           * "1 consulta de código en GPT-4 = 20 minutos de ampolleta LED"
-           * "10 imágenes en Gemini = 5 botellas de agua"
-           * "100 videos = 1 km en coche"
-         
-         IMPLEMENTACIÓN:
-         - HTML: Crear cards con íconos (💧 agua, ⚡ energía, 🌍 CO₂)
-         - JavaScript: Función que calcule equivalencias basadas en resultado actual
-         - Interactividad: Al cambiar modelo/tipo, actualizar equivalencias dinámicamente
-         
-         UBICACIÓN DEL CÓDIGO:
-         - HTML: Este archivo (results_charts.html) - section equivalences-cards
-         - JavaScript: static/js/charts.js → función updateEquivalenceCards()
-         
-         DATOS DE ENTRADA:
-         - Usar los valores eq_agua, eq_energia, eq_co2 del resultado
-         - Hacer que sea dinámico basado en formulario
-    ================================================== -->
-    <div class="chart-section equivalences">
-        <h3>Equivalencias Ambientales</h3>
-        <p class="chart-description">¿Qué significa en términos reales el impacto de tus consultas?</p>
-        <div class="equivalence-cards" id="equivalenceCards">
-            <!-- Aquí van las cards generadas dinámicamente por JavaScript -->
-        </div>
-    </div>
-
-    <!-- ===============================================
-         GRÁFICO 5: Evolución del impacto acumulado (Line o Area Chart)
+         GRÁFICO 4: Evolución del impacto acumulado (Line o Area Chart)
          ===============================================
          
          INSTRUCCIONES PARA IMPLEMENTAR:
@@ -152,7 +119,7 @@
          - Mostrar curva de crecimiento
     ================================================== -->
     <div class="chart-section">
-        <h3>📈 Impacto Acumulado (Proyección a Escala)</h3>
+        <h3>Impacto Acumulado (Proyección a Escala)</h3>
         <p class="chart-description">¿Cuánto impacto genera hacer muchas consultas? Proyecta el consumo a largo plazo</p>
         <div class="chart-controls">
             <label for="cumulativeModel">Selecciona modelo:</label>
