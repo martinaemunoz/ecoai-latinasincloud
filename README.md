@@ -9,19 +9,19 @@
 **EcoAI** es una aplicación web desarrollada con **Python** y **Flask** que permite calcular y visualizar el **impacto ambiental del uso de la inteligencia artificial**, expresado en consumo de agua, energía y emisiones de CO₂.
 
 ## Índice
-1. [Características Principales](#-características-principales)
-2. [Tecnologías Utilizadas](#-tecnologías-utilizadas) 
-3. [Instalación y Configuración](#-instalación-y-configuración)
-4. [Uso de la Aplicación](#-uso-de-la-aplicación)
-5. [Arquitectura del Proyecto](#-arquitectura-del-proyecto)
-6. [Testing y Calidad de Código](#-testing-y-calidad-de-código)
-7. [Estructura de CSS Modular](#-estructura-de-css-modular)
-8. [Implementación de Gráficos](#-implementación-de-gráficos)
-9. [API y Endpoints](#-api-y-endpoints)
-10. [Historias de Usuario](#-historias-de-usuario)
-11. [Contribución](#-contribución)
-12. [Equipo de Desarrollo](#-equipo-de-desarrollo)
-13. [Licencia](#-licencia)
+1. [Características Principales](#características-principales)
+2. [Tecnologías Utilizadas](#tecnologías-utilizadas) 
+3. [Instalación y Configuración](#instalación-y-configuración)
+4. [Uso de la Aplicación](#uso-de-la-aplicación)
+5. [Arquitectura del Proyecto](#arquitectura-del-proyecto)
+6. [Testing y Calidad de Código](#testing-y-calidad-de-código)
+7. [Estructura de CSS Modular](#estructura-de-css-modular)
+8. [Implementación de Gráficos](#implementación-de-gráficos)
+9. [API y Endpoints](#api-y-endpoints)
+10. [Historias de Usuario](#historias-de-usuario)
+11. [Contribución](#contribución)
+12. [Equipo de Desarrollo](#equipo-de-desarrollo)
+13. [Licencia](#licencia)
 
 ---
 
@@ -548,4 +548,5 @@ Este proyecto está desarrollado como parte del curso de **Python con Flask** de
 
 [![Latinas in Cloud](https://img.shields.io/badge/Latinas%20in%20Cloud-2025-purple)](https://latinasincloud.org)
 [![Python](https://img.shields.io/badge/Made%20with-Python-3776ab)](https://python.org)
+
 [![Flask](https://img.shields.io/badge/Powered%20by-Flask-000000)](https://flask.palletsprojects.com)
