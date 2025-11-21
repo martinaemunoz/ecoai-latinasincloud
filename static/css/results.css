@@ -24,7 +24,7 @@
 }
 
 .back-link:hover {
-    background-color: var(--primary-light);
+    background-color: var(--primary-dark);
 }
 
 .success-container,

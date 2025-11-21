@@ -40,7 +40,7 @@ def all_modelos():
     """
     Lista de todos los modelos válidos.
     """
-    return ['GPT-4 Turbo', 'Claude 3 Opus', 'Gemini 1.5 Pro']
+    return ['GPT-4 Turbo', 'Claude 3', 'Gemini 1.5']
 
 
 @pytest.fixture

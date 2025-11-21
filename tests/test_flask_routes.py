@@ -35,8 +35,8 @@ class TestIndexRoute:
         
         # Verificar que los 3 modelos están disponibles
         assert b'GPT-4 Turbo' in response.data
-        assert b'Claude 3 Opus' in response.data
-        assert b'Gemini 1.5 Pro' in response.data
+        assert b'Claude 3' in response.data
+        assert b'Gemini 1.5' in response.data
         
         # Verificar que todas las opciones de tipos de consulta están
         for tipo in all_query_types:
@@ -143,44 +143,44 @@ class TestCalcularRouteValidCombinations:
         assert b'GPT-4 Turbo' in response.data
     
     def test_claude_codigo(self, client):
-        """Test Claude 3 Opus + código"""
+        """Test Claude 3 + código"""
         response = client.post('/calcular', data={
-            'modelo': 'Claude 3 Opus',
+            'modelo': 'Claude 3',
             'tipo_consulta': 'código',
             'cantidad': 1
         })
         assert response.status_code == 200
-        assert b'Claude 3 Opus' in response.data
+        assert b'Claude 3' in response.data
     
     def test_gemini_imagen(self, client):
-        """Test Gemini 1.5 Pro + imagen"""
+        """Test Gemini 1.5 + imagen"""
         response = client.post('/calcular', data={
-            'modelo': 'Gemini 1.5 Pro',
+            'modelo': 'Gemini 1.5',
             'tipo_consulta': 'imagen',
             'cantidad': 1
         })
         assert response.status_code == 200
-        assert b'Gemini 1.5 Pro' in response.data
+        assert b'Gemini 1.5' in response.data
     
     def test_claude_audio(self, client):
-        """Test Claude 3 Opus + audio"""
+        """Test Claude 3 + audio"""
         response = client.post('/calcular', data={
-            'modelo': 'Claude 3 Opus',
+            'modelo': 'Claude 3',
             'tipo_consulta': 'audio',
             'cantidad': 1
         })
         assert response.status_code == 200
-        assert b'Claude 3 Opus' in response.data
+        assert b'Claude 3' in response.data
     
     def test_video_result(self, client):
         """Test con tipo video"""
         response = client.post('/calcular', data={
-            'modelo': 'Claude 3 Opus',
+            'modelo': 'Claude 3',
             'tipo_consulta': 'video',
             'cantidad': 2
         })
         assert response.status_code == 200
-        assert b'Claude 3 Opus' in response.data
+        assert b'Claude 3' in response.data
 
 
 class TestTemplateRendering:
@@ -224,7 +224,7 @@ class TestFormSubmissionAndEdgeCases:
         """Verificar que formulario acepta cantidades especiales (float, grandes)"""
         # Cantidad con decimales
         response1 = client.post('/calcular', data={
-            'modelo': 'Claude 3 Opus',
+            'modelo': 'Claude 3',
             'tipo_consulta': 'audio',
             'cantidad': '2.5'
         })

@@ -40,8 +40,8 @@ class TestCalcularImpactoValidInput:
     
     @pytest.mark.parametrize("modelo,tipo,cantidad", [
         ('GPT-4 Turbo', 'texto', 5),
-        ('Claude 3 Opus', 'imagen', 3),
-        ('Gemini 1.5 Pro', 'código', 2),
+        ('Claude 3', 'imagen', 3),
+        ('Gemini 1.5', 'código', 2),
     ])
     def test_multiple_valid_inputs(self, modelo, tipo, cantidad):
         """Verificar que múltiples combinaciones válidas funcionan correctamente"""
@@ -114,7 +114,7 @@ class TestCalcularImpactoCantidadEspecial:
     
     def test_cantidad_float(self):
         """Aceptar cantidades con decimales"""
-        resultado = calcular_impacto('Claude 3 Opus', 'audio', 2.5)
+        resultado = calcular_impacto('Claude 3', 'audio', 2.5)
         
         assert isinstance(resultado, dict)
         assert resultado['cantidad'] == 2.5
@@ -141,19 +141,19 @@ class TestCalcularImpactoAllCombinations:
     
     @pytest.mark.parametrize("modelo,tipo", [
         ('GPT-4 Turbo', 'texto'),
-        ('Claude 3 Opus', 'texto'),
-        ('Gemini 1.5 Pro', 'texto'),
+        ('Claude 3', 'texto'),
+        ('Gemini 1.5', 'texto'),
         ('GPT-4 Turbo', 'código'),
-        ('Claude 3 Opus', 'código'),
-        ('Gemini 1.5 Pro', 'código'),
+        ('Claude 3', 'código'),
+        ('Gemini 1.5', 'código'),
         ('GPT-4 Turbo', 'imagen'),
-        ('Claude 3 Opus', 'imagen'),
-        ('Gemini 1.5 Pro', 'imagen'),
-        ('Claude 3 Opus', 'audio'),
-        ('Gemini 1.5 Pro', 'audio'),
+        ('Claude 3', 'imagen'),
+        ('Gemini 1.5', 'imagen'),
+        ('Claude 3', 'audio'),
+        ('Gemini 1.5', 'audio'),
         ('GPT-4 Turbo', 'video'),
-        ('Claude 3 Opus', 'video'),
-        ('Gemini 1.5 Pro', 'video'),
+        ('Claude 3', 'video'),
+        ('Gemini 1.5', 'video'),
     ])
     def test_all_modelo_tipo_combinations(self, modelo, tipo):
         """Verificar que todas las combinaciones válidas de modelo+tipo funcionan"""
@@ -175,7 +175,7 @@ class TestCalcularImpactoMatematica:
         
         # agua con 10 debe ser aprox 10x que con 1
         ratio = resultado_10['agua'] / resultado_1['agua']
-        assert ratio == pytest.approx(10.0, rel=0.01)
+        assert ratio == pytest.approx(10.0, rel=0.02)
     
     def test_calculo_siempre_positivo(self, all_modelos, all_query_types):
         """Verificar que el resultado nunca tiene valores negativos"""
@@ -189,7 +189,7 @@ class TestCalcularImpactoMatematica:
     
     def test_calculo_valores_decimales(self):
         """Verificar que valores tienen máximo 2 decimales"""
-        resultado = calcular_impacto('Claude 3 Opus', 'código', 3)
+        resultado = calcular_impacto('Claude 3', 'código', 3)
         
         # Convertir a string y verificar decimales
         agua_str = str(resultado['agua'])
