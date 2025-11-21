@@ -112,6 +112,7 @@ function initModelComparisonChart(chartData) {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     position: 'top',
@@ -200,6 +201,7 @@ function initQueryTypeChart(chartData) {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     position: 'top',
@@ -278,6 +280,7 @@ function initEnergyDistributionChart(chartData) {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     position: 'right',
@@ -467,6 +470,7 @@ function initCumulativeImpactChart(chartData) {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     position: 'top',
@@ -575,6 +579,7 @@ function initEfficiencyIndexChart(chartData) {
         options: {
             indexAxis: 'y',
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     position: 'top',

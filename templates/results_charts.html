@@ -27,9 +27,11 @@
          y pasarlos como variables de contexto desde app.py
     ================================================== -->
     <div class="chart-section">
-        <h3>📊 Impacto Ambiental por Modelo</h3>
+        <h3>Impacto Ambiental por Modelo</h3>
         <p class="chart-description">Comparación de agua, energía y CO₂ consumidos en promedio por cada modelo de IA</p>
-        <canvas id="modelComparisonChart"></canvas>
+        <div style="height: 300px; position: relative;">
+            <canvas id="modelComparisonChart"></canvas>
+        </div>
     </div>
 
     <!-- ===============================================
@@ -52,9 +54,11 @@
          - Normalizar valores para comparabilidad en radar (0-100 scale)
     ================================================== -->
     <div class="chart-section">
-        <h3>🎯 Impacto por Tipo de Consulta</h3>
+        <h3>Impacto por Tipo de Consulta</h3>
         <p class="chart-description">Visualiza cómo cambia el consumo ambiental según el tipo de tarea (texto, código, imagen, etc.)</p>
-        <canvas id="queryTypeChart"></canvas>
+        <div style="height: 300px; position: relative;">
+            <canvas id="queryTypeChart"></canvas>
+        </div>
     </div>
 
     <!-- ===============================================
@@ -82,9 +86,11 @@
          - Calcular porcentaje de cada tipo respecto al total
     ================================================== -->
     <div class="chart-section">
-        <h3>⚡ Distribución del Consumo Energético</h3>
+        <h3>Distribución del Consumo Energético</h3>
         <p class="chart-description">¿Qué tipo de consulta consume más energía? Visualiza los porcentajes totales</p>
-        <canvas id="energyDistributionChart"></canvas>
+        <div style="height: 300px; position: relative; max-width: 400px; margin: 0 auto;">
+            <canvas id="energyDistributionChart"></canvas>
+        </div>
     </div>
 
     <!-- ===============================================
@@ -113,7 +119,7 @@
          - Hacer que sea dinámico basado en formulario
     ================================================== -->
     <div class="chart-section equivalences">
-        <h3>💡 Equivalencias Ambientales</h3>
+        <h3>Equivalencias Ambientales</h3>
         <p class="chart-description">¿Qué significa en términos reales el impacto de tus consultas?</p>
         <div class="equivalence-cards" id="equivalenceCards">
             <!-- Aquí van las cards generadas dinámicamente por JavaScript -->
@@ -164,7 +170,9 @@
                 <option value="video">Video</option>
             </select>
         </div>
-        <canvas id="cumulativeImpactChart"></canvas>
+        <div style="height: 350px; position: relative;">
+            <canvas id="cumulativeImpactChart"></canvas>
+        </div>
     </div>
 
     <!-- ===============================================
@@ -193,9 +201,11 @@
          - Ordenar de mayor a menor eficiencia
     ================================================== -->
     <div class="chart-section">
-        <h3>🌿 Índice de Eficiencia Ambiental</h3>
+        <h3>Índice de Eficiencia Ambiental</h3>
         <p class="chart-description">Ranking de modelos según su eficiencia ambiental (puntuación más alta = más eficiente)</p>
-        <canvas id="efficiencyIndexChart"></canvas>
+        <div style="height: 300px; position: relative;">
+            <canvas id="efficiencyIndexChart"></canvas>
+        </div>
     </div>
 
     <div class="charts-footer">
