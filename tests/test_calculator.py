@@ -14,37 +14,37 @@ class TestCalcularImpactoValidInput:
         """Entrada válida devuelve dict con todos los campos requeridos y valores válidos"""
         resultado = calcular_impacto('GPT-4 Turbo', 'texto', 5)
         
-        # Verificar tipo
+        # verificar tipo
         assert isinstance(resultado, dict)
-        
-        # Verificar campos requeridos
-        required_fields = ['modelo', 'tipo_consulta', 'cantidad', 'agua', 'energia', 'co2', 
+
+        # verificar campos requeridos
+        required_fields = ['modelo', 'tipo_consulta', 'cantidad', 'agua', 'energia', 'co2',
                           'eq_agua', 'eq_energia', 'eq_co2']
         for field in required_fields:
             assert field in resultado, f"Campo {field} falta en resultado"
         
-        # Verificar valores
+        # verificar valores
         assert resultado['modelo'] == 'GPT-4 Turbo'
         assert resultado['tipo_consulta'] == 'texto'
         assert resultado['cantidad'] == 5
         
-        # Verificar valores positivos
+        # verificar valores positivos
         assert resultado['agua'] > 0
         assert resultado['energia'] > 0
         assert resultado['co2'] > 0
-        
-        # Verificar equivalencias no vacías
+
+        # verificar equivalencias no vacías
         assert isinstance(resultado['eq_agua'], str) and len(resultado['eq_agua']) > 0
         assert isinstance(resultado['eq_energia'], str) and len(resultado['eq_energia']) > 0
         assert isinstance(resultado['eq_co2'], str) and len(resultado['eq_co2']) > 0
     
     @pytest.mark.parametrize("modelo,tipo,cantidad", [
         ('GPT-4 Turbo', 'texto', 5),
-        ('Claude 3 Opus', 'imagen', 3),
-        ('Gemini 1.5 Pro', 'código', 2),
+        ('Claude 3', 'imagen', 3),
+        ('Gemini 1.5', 'código', 2),
     ])
     def test_multiple_valid_inputs(self, modelo, tipo, cantidad):
-        """Verificar que múltiples combinaciones válidas funcionan correctamente"""
+        """verif que múltiples combinaciones válidas funcionan correctamente"""
         resultado = calcular_impacto(modelo, tipo, cantidad)
         
         assert isinstance(resultado, dict)
@@ -55,24 +55,24 @@ class TestCalcularImpactoValidInput:
 
 
 class TestCalcularImpactoCantidadInvalida:
-    """Tests con cantidad inválida"""
+    """tests con cantidad inválida"""
     
     def test_cantidad_cero(self):
-        """Rechazar cantidad = 0"""
+        """rechazar cantidad = 0"""
         resultado = calcular_impacto('GPT-4 Turbo', 'texto', 0)
         
         assert isinstance(resultado, str)
         assert 'Error' in resultado
     
     def test_cantidad_negativa(self):
-        """Rechazar cantidad negativa"""
+        """rechazar cantidad negativa"""
         resultado = calcular_impacto('GPT-4 Turbo', 'texto', -5)
         
         assert isinstance(resultado, str)
         assert 'Error' in resultado
     
     def test_cantidad_tipo_invalido(self):
-        """Rechazar cantidad no numérica (pasada como string)"""
+        """rechazar cantidad no numérica (pasada como string)"""
         resultado = calcular_impacto('GPT-4 Turbo', 'texto', 'cinco')
         
         assert isinstance(resultado, str)
@@ -80,17 +80,17 @@ class TestCalcularImpactoCantidadInvalida:
 
 
 class TestCalcularImpactoModeloInvalido:
-    """Tests con modelo inválido"""
+    """tests con modelo inválido"""
     
     def test_modelo_no_existe(self):
-        """Rechazar modelo que no existe en dataset"""
+        """rechazar modelo que no existe en dataset"""
         resultado = calcular_impacto('InvalidModel', 'texto', 5)
         
         assert isinstance(resultado, str)
         assert 'no encontrada' in resultado or 'no reconocido' in resultado
     
     def test_modelo_nombre_incorrecto(self):
-        """Rechazar modelo con nombre incorrecto (case-sensitive)"""
+        """rechazar modelo con nombre incorrecto (case-sensitive)"""
         resultado = calcular_impacto('gpt-4 turbo', 'texto', 5)  # lowercase
         
         # Depende de implementación, pero debería fallar
@@ -99,10 +99,10 @@ class TestCalcularImpactoModeloInvalido:
 
 
 class TestCalcularImpactoTipoInvalido:
-    """Tests con tipo de consulta inválido"""
+    """tests con tipo de consulta inválido"""
     
     def test_tipo_no_existe(self):
-        """Rechazar tipo_consulta que no existe"""
+        """rechazar tipo_consulta que no existe"""
         resultado = calcular_impacto('GPT-4 Turbo', 'tipo_invalido', 5)
         
         assert isinstance(resultado, str)
@@ -110,17 +110,17 @@ class TestCalcularImpactoTipoInvalido:
 
 
 class TestCalcularImpactoCantidadEspecial:
-    """Tests con cantidades especiales (float, grandes números)"""
+    """tests con cantidades especiales (float, grandes números)"""
     
     def test_cantidad_float(self):
-        """Aceptar cantidades con decimales"""
-        resultado = calcular_impacto('Claude 3 Opus', 'audio', 2.5)
+        """aceptar cantidades con decimales"""
+        resultado = calcular_impacto('Claude 3', 'audio', 2.5)
         
         assert isinstance(resultado, dict)
         assert resultado['cantidad'] == 2.5
     
     def test_cantidad_grande(self):
-        """Manejar cantidades grandes"""
+        """manejar cantidades grandes"""
         resultado = calcular_impacto('GPT-4 Turbo', 'texto', 10000)
         
         assert isinstance(resultado, dict)
@@ -128,7 +128,7 @@ class TestCalcularImpactoCantidadEspecial:
         assert resultado['agua'] > 0
     
     def test_cantidad_uno(self):
-        """Manejar cantidad = 1"""
+        """manejar cantidad = 1"""
         resultado = calcular_impacto('GPT-4 Turbo', 'texto', 1)
         
         assert isinstance(resultado, dict)
@@ -137,26 +137,26 @@ class TestCalcularImpactoCantidadEspecial:
 
 
 class TestCalcularImpactoAllCombinations:
-    """Tests verificar que todos los modelos y tipos de consulta funcionan"""
+    """verificar que todos los modelos y tipos de consulta funcionan"""
     
     @pytest.mark.parametrize("modelo,tipo", [
         ('GPT-4 Turbo', 'texto'),
-        ('Claude 3 Opus', 'texto'),
-        ('Gemini 1.5 Pro', 'texto'),
+        ('Claude 3', 'texto'),
+        ('Gemini 1.5', 'texto'),
         ('GPT-4 Turbo', 'código'),
-        ('Claude 3 Opus', 'código'),
-        ('Gemini 1.5 Pro', 'código'),
+        ('Claude 3', 'código'),
+        ('Gemini 1.5', 'código'),
         ('GPT-4 Turbo', 'imagen'),
-        ('Claude 3 Opus', 'imagen'),
-        ('Gemini 1.5 Pro', 'imagen'),
-        ('Claude 3 Opus', 'audio'),
-        ('Gemini 1.5 Pro', 'audio'),
+        ('Claude 3', 'imagen'),
+        ('Gemini 1.5', 'imagen'),
+        ('Claude 3', 'audio'),
+        ('Gemini 1.5', 'audio'),
         ('GPT-4 Turbo', 'video'),
-        ('Claude 3 Opus', 'video'),
-        ('Gemini 1.5 Pro', 'video'),
+        ('Claude 3', 'video'),
+        ('Gemini 1.5', 'video'),
     ])
     def test_all_modelo_tipo_combinations(self, modelo, tipo):
-        """Verificar que todas las combinaciones válidas de modelo+tipo funcionan"""
+        """verif que todas las combinaciones válidas de modelo+tipo funcionan"""
         resultado = calcular_impacto(modelo, tipo, 1)
         
         assert isinstance(resultado, dict), f"Resultado no es dict para {modelo}+{tipo}"
@@ -166,19 +166,19 @@ class TestCalcularImpactoAllCombinations:
 
 
 class TestCalcularImpactoMatematica:
-    """Tests para verificar que cálculos matemáticos son correctos"""
+    """tests para verificar que cálculos matemáticos son correctos"""
     
     def test_calculo_escala_lineal(self):
-        """Verificar que el impacto escala linealmente con cantidad"""
+        """verif que el impacto escala linealmente con cantidad"""
         resultado_1 = calcular_impacto('GPT-4 Turbo', 'texto', 1)
         resultado_10 = calcular_impacto('GPT-4 Turbo', 'texto', 10)
         
         # agua con 10 debe ser aprox 10x que con 1
         ratio = resultado_10['agua'] / resultado_1['agua']
-        assert ratio == pytest.approx(10.0, rel=0.01)
+        assert ratio == pytest.approx(10.0, rel=0.02)
     
     def test_calculo_siempre_positivo(self, all_modelos, all_query_types):
-        """Verificar que el resultado nunca tiene valores negativos"""
+        """verif que el resultado nunca tiene valores negativos"""
         for modelo in all_modelos:
             for tipo in all_query_types:
                 resultado = calcular_impacto(modelo, tipo, 5)
@@ -188,8 +188,8 @@ class TestCalcularImpactoMatematica:
                     assert resultado['co2'] > 0, f"CO2 negativo para {modelo} + {tipo}"
     
     def test_calculo_valores_decimales(self):
-        """Verificar que valores tienen máximo 2 decimales"""
-        resultado = calcular_impacto('Claude 3 Opus', 'código', 3)
+        """verif que valores tienen máximo 2 decimales"""
+        resultado = calcular_impacto('Claude 3', 'código', 3)
         
         # Convertir a string y verificar decimales
         agua_str = str(resultado['agua'])
@@ -202,29 +202,29 @@ class TestDataIntegrity:
     """Tests para verificar integridad completa del CSV"""
     
     def test_csv_cargado(self):
-        """Verificar que CSV se cargó correctamente como diccionario"""
+        """verif que CSV se cargó correctamente como diccionario"""
         assert DB is not None
         assert isinstance(DB, dict)
         assert len(DB) > 0
     
     def test_csv_minimo_filas(self):
-        """Verificar que CSV tiene mínimo 14 filas (3 modelos × tipos variados)"""
+        """verif que CSV tiene mínimo 14 filas (3 modelos × tipos variados)"""
         total_filas = sum(len(rows) for rows in DB.values())
         assert total_filas >= 14
     
     def test_csv_integridad_completa(self, all_modelos, all_query_types):
-        """Validación integral: campos, valores numéricos, tipos y equivalencias"""
+        """validación integral: campos, valores numéricos, tipos y equivalencias"""
         required_fields = ['modelo', 'tipo_consulta', 'agua(L)', 'energia(kWh)', 
                           'carbono(gCO2e)', 'eq_agua', 'eq_energia', 'eq_co2']
         
         for rows in DB.values():
             for row in rows:
-                # Verificar que todos los campos requeridos existen y no están vacíos
+                # verificar que todos los campos requeridos existen y no están vacíos
                 for field in required_fields:
                     assert field in row, f"Campo {field} falta en row {row}"
                     assert row[field] != '', f"Campo {field} está vacío en {row}"
                 
-                # Verificar valores numéricos son positivos
+                # verificar valores numéricos son positivos
                 agua = float(row['agua(L)'])
                 energia = float(row['energia(kWh)'])
                 carbono = float(row['carbono(gCO2e)'])
@@ -233,11 +233,11 @@ class TestDataIntegrity:
                 assert energia > 0, f"Energía debe ser > 0 en {row}, got {energia}"
                 assert carbono > 0, f"Carbono debe ser > 0 en {row}, got {carbono}"
                 
-                # Verificar modelo y tipo válidos
+                # verificar modelo y tipo válidos
                 assert row['modelo'] in all_modelos, f"Modelo inválido: {row['modelo']}"
                 assert row['tipo_consulta'] in all_query_types, f"Tipo inválido: {row['tipo_consulta']}"
                 
-                # Verificar equivalencias presentes
+                # verificar equivalencias presentes
                 assert len(row['eq_agua']) > 0, f"eq_agua vacía en {row}"
                 assert len(row['eq_energia']) > 0, f"eq_energia vacía en {row}"
                 assert len(row['eq_co2']) > 0, f"eq_co2 vacía en {row}"

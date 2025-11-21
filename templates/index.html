@@ -1,39 +1,158 @@
-<!-- página principal con el formulario -->
 {% extends "base.html" %}
 
 {% block content %}
-<div class="calculator-container">
-    <h2>Calcula tu impacto ambiental al consultar la IA</h2>
-    
-    <form action="/calcular" method="POST" class="impact-form">
-        <div class="form-group">
-            <label for="modelo">Selecciona el modelo de IA:</label>
-            <select name="modelo" id="modelo" required>
-                <option value="">-- Selecciona un modelo --</option>
-                <option value="GPT-4 Turbo">GPT-4 Turbo (OpenAI)</option>
-                <option value="Claude 3 Opus">Claude 3 Opus (Anthropic)</option>
-                <option value="Gemini 1.5 Pro">Gemini 1.5 Pro (Google)</option>
-            </select>
-        </div>
+<!-- sección welcome -->
+<section class="welcome-section">
+    <div class="welcome-container">
+        <div class="welcome-content">
+            <h2>Bienvenido a EcoAI</h2>
+            <p class="welcome-subtitle">Descubre el impacto ambiental real de tus consultas de IA</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">💧</span>
+                    <h3>Agua</h3>
+                    <p>Mide el consumo de agua en litros</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Energía</h3>
+                    <p>Calcula la energía en kWh consumida</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🌍</span>
+                    <h3>Carbono</h3>
+                    <p>Estima las emisiones de CO₂</p>
+                </div>
+            </div>
 
-        <div class="form-group">
-            <label for="tipo_consulta">Tipo de consulta:</label>
-            <select name="tipo_consulta" id="tipo_consulta" required data-texto="Número de consultas de texto" data-código="Cantidad de bloques de código" data-imagen="Número de imágenes" data-audio="Cantidad de minutos de audio transcribidos" data-video="Cantidad de minutos de video">
-                <option value="">-- Selecciona un tipo --</option>
-                <option value="texto">Consultas de texto simple</option>
-                <option value="código">Creación o ejecución de código</option>
-                <option value="imagen">Creación de imagen</option>
-                <option value="audio">Transcripción de audio</option>
-                <option value="video">Creación de video</option>
-            </select>
+            <a href="#calculator" class="btn btn-primary btn-lg">Comenzar Cálculo</a>
         </div>
-
-        <div class="form-group">
-            <label for="cantidad" id="cantidad-label">Cantidad:</label>
-            <input type="number" name="cantidad" id="cantidad" min="1" placeholder="Selecciona un tipo de consulta primero" disabled>
+        
+        <div class="welcome-image">
+            <svg viewBox="0 0 400 400" class="hero-illustration">
+                <!-- círculos de fondo -->
+                <circle cx="200" cy="200" r="200" fill="#d1fae5" opacity="0.5"/>
+                <circle cx="200" cy="200" r="150" fill="#a7f3d0" opacity="0.5"/>
+                
+                <!-- ampolleta -->
+                <g transform="translate(200, 200) scale(0.6) translate(-256, -256)">
+                    <!-- base de la ampolleta -->
+                    <path style="fill:#A7B0C0;" d="M204.8,448c-14.114,0-25.6-11.486-25.6-25.6s11.486-25.6,25.6-25.6h102.4 c14.114,0,25.6,11.486,25.6,25.6S321.314,448,307.2,448H204.8z"/>
+                    <path style="fill:#A7B0C0;" d="M204.8,499.2c-14.114,0-25.6-11.486-25.6-25.6c0-14.114,11.486-25.6,25.6-25.6h102.4 c14.114,0,25.6,11.486,25.6,25.6c0,14.114-11.486,25.6-25.6,25.6H204.8z"/>
+                    <!-- cuerpo de la ampolleta -->
+                    <path style="fill:#FEDEA1;" d="M192,396.8V384c0-48.7-21.632-78.012-44.544-109.03c-22.144-30.02-45.056-61.056-45.056-108.57 c0-84.693,68.907-153.6,153.6-153.6s153.6,68.907,153.6,153.6c0,47.514-22.912,78.549-45.056,108.57 C341.632,305.988,320,335.3,320,384v12.8H192z"/>
+                    <!-- parte superior del brote -->
+                    <path style="fill:#A0BF7C;" d="M261.726,71.748L243.2,62.49V83.2c0,22.315-15.667,36.608-32.247,51.738 C195.345,149.18,179.2,163.908,179.2,185.6c0,38.758,29.167,71.415,67.849,75.964l32.205-3.081 C311.287,248.26,332.8,218.974,332.8,185.6C332.8,134.366,308.224,95.002,261.726,71.748z"/>
+                    <!-- contorno de la ampolleta -->
+                    <path style="fill:#221713;" d="M374.835,282.564C397.133,252.365,422.4,218.129,422.4,166.4C422.4,74.65,347.75,0,256,0 S89.6,74.65,89.6,166.4c0,51.729,25.267,85.965,47.565,116.164C159.718,313.122,179.2,339.516,179.2,384v9.984 c-7.799,7.031-12.8,17.109-12.8,28.416c0,9.873,3.849,18.79,9.984,25.6c-6.144,6.81-9.984,15.727-9.984,25.6 c0,21.171,17.229,38.4,38.4,38.4h102.4c21.171,0,38.4-17.229,38.4-38.4c0-9.873-3.849-18.79-9.984-25.6 c6.144-6.81,9.984-15.727,9.984-25.6c0-11.307-5.001-21.376-12.8-28.416V384C332.8,339.516,352.282,313.122,374.835,282.564z M307.2,486.4H204.8c-7.066,0-12.8-5.734-12.8-12.8c0-7.074,5.734-12.8,12.8-12.8h102.4c7.066,0,12.8,5.726,12.8,12.8 C320,480.666,314.266,486.4,307.2,486.4z M307.2,435.2H204.8c-7.066,0-12.8-5.734-12.8-12.8c0-7.074,5.734-12.8,12.8-12.8h102.4 c7.066,0,12.8,5.726,12.8,12.8C320,429.466,314.266,435.2,307.2,435.2z M281.472,164.599c-1.024-6.997-7.697-11.75-14.473-10.871 c-6.997,0.998-11.878,7.475-10.871,14.473c3.874,27.17-1.254,53.385-7.578,80.649c-31.787-3.738-56.542-30.455-56.542-63.249 c0-35.345,64-51.2,64-102.4c51.2,25.6,64,67.055,64,102.4c0,28.553-18.816,52.446-44.629,60.689 C281.165,220.117,285.559,193.126,281.472,164.599z M307.2,384h-39.39c-13.824-38.537-7.236-73.813,1.22-110.114 c43.204-6.374,76.578-43.341,76.578-88.286c0-56.405-27.025-99.738-78.148-125.295c-3.627-1.809-7.543-2.705-11.46-2.705 c-4.685,0-9.353,1.28-13.457,3.823C234.991,66.091,230.4,74.325,230.4,83.2c0,15.548-10.607,26.342-28.075,42.283 c-16.836,15.36-35.925,32.777-35.925,60.117c0,44.877,33.263,81.801,76.365,88.26c-7.629,33.818-13.457,70.4-1.732,110.14H204.8 c0-102.4-89.6-128-89.6-217.6c0-77.764,63.036-140.8,140.8-140.8s140.8,63.036,140.8,140.8C396.8,256,307.2,281.6,307.2,384z"/>
+                </g>
+            </svg>
         </div>
+    </div>
+</section>
 
-        <button type="submit" class="calculate-btn">Calcular</button>
-    </form>
-</div>
+<!-- sección de calculadora -->
+<section id="calculator" class="calculator-section">
+    <div class="calculator-container">
+        <h2>Calcula tu Impacto Ambiental</h2>
+        <p class="section-subtitle">Selecciona el modelo de IA y el tipo de consulta</p>
+
+        <form id="impactForm" action="/calcular" method="POST" class="impact-form" novalidate>
+            <!-- selección de modelo -->
+            <div class="form-group">
+                <label for="modelo">
+                    <span class="label-text">Modelo de IA</span>
+                    <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                    <select name="modelo" id="modelo" required class="form-select">
+                        <option value="">-- Selecciona un modelo --</option>
+                        <option value="GPT-4 Turbo">GPT-4 Turbo (OpenAI)</option>
+                        <option value="Claude 3">Claude 3 (Anthropic)</option>
+                        <option value="Gemini 1.5">Gemini 1.5 (Google)</option>
+                    </select>
+                </div>
+                <div class="form-hint">Elige el modelo de IA que usarás</div>
+            </div>
+
+            <!-- tipo de consulta -->
+            <div class="form-group">
+                <label for="tipo_consulta">
+                    <span class="label-text">Tipo de Consulta</span>
+                    <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                    <select name="tipo_consulta" id="tipo_consulta" required class="form-select">
+                        <option value="">-- Selecciona un tipo --</option>
+                        <option value="texto" data-hint="Número de consultas de texto simple">Consultas de texto 📄</option>
+                        <option value="código" data-hint="Cantidad de bloques de código">Creación de código 💻</option>
+                        <option value="imagen" data-hint="Número de imágenes generadas">Generación de imagen 🖼️</option>
+                        <option value="audio" data-hint="Cantidad de minutos de audio">Transcripción de audio 🎵</option>
+                        <option value="video" data-hint="Cantidad de minutos de video">Creación de video 🎬</option>
+                    </select>
+                </div>
+                <div class="form-hint" id="typeHint">Selecciona un tipo de consulta primero</div>
+            </div>
+
+            <!-- entry cantidad -->
+            <div class="form-group">
+                <label for="cantidad">
+                    <span class="label-text" id="cantidadLabel">Cantidad</span>
+                    <span class="required">*</span>
+                </label>
+                <div class="input-wrapper input-number">
+                    <input 
+                        type="number" 
+                        name="cantidad" 
+                        id="cantidad" 
+                        min="1" 
+                        step="1"
+                        placeholder="Ingresa una cantidad" 
+                        required 
+                        class="form-input"
+                        disabled
+                    >
+                    <span class="input-unit" id="cantidadUnit"></span>
+                </div>
+                <div class="form-hint">Ingresa un número entero positivo según el tipo de consulta</div>
+            </div>
+
+            <!-- botón de enviar -->
+            <button type="submit" class="btn btn-primary btn-lg" id="submitBtn" disabled>
+                <span>Calcular Impacto</span>
+            </button>
+
+            <!-- mensaje de error del formulario -->
+            <div id="formError" class="form-error hidden"></div>
+        </form>
+
+        <!-- sección de información -->
+        <div id="info" class="info-section">
+            <h3>¿Cómo funciona?</h3>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-number">1</div>
+                    <h4>Selecciona un Modelo</h4>
+                    <p>Elige el modelo de IA que utilizarás: GPT-4 Turbo, Claude 3 o Gemini 1.5</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-number">2</div>
+                    <h4>Elige el Tipo</h4>
+                    <p>Selecciona qué tipo de consulta realizarás: texto, código, imagen, audio o video</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-number">3</div>
+                    <h4>Ingresa la Cantidad</h4>
+                    <p>Especifica cuántas consultas harás según la unidad de medida</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-number">4</div>
+                    <h4>Obtén Resultados</h4>
+                    <p>Visualiza el impacto ambiental en agua, energía y carbono con equivalencias</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

@@ -1,15 +1,16 @@
-modelo,proveedor,tipo_consulta,unidad_medida,agua(L),energia(kWh),carbono(gCO2e),eq_agua,eq_energia,eq_co2
-GPT-4 Turbo,OpenAI,texto,pregunta,0.75,0.15,0.3,3 vasos de agua,10 min ampolleta LED,200 m en auto
-Claude 3 Opus,Anthropic,texto,pregunta,0.6,0.12,0.24,2.5 vasos de agua,8 min ampolleta LED,160 m en auto
-Gemini 1.5 Pro,Google,texto,pregunta,0.65,0.13,0.26,3 vasos de agua,9 min ampolleta LED,170 m en auto
-GPT-4 Turbo,OpenAI,código,bloque,1.2,0.25,0.45,medio vaso de agua,18 min ampolleta LED,300 m en auto
-Claude 3 Opus,Anthropic,código,bloque,1.0,0.2,0.4,medio vaso de agua,15 min ampolleta LED,270 m en auto
-Gemini 1.5 Pro,Google,código,bloque,1.1,0.22,0.42,medio vaso de agua,16 min ampolleta LED,280 m en auto
-Gemini 1.5 Pro,Google,imagen,imagen,2.1,0.6,1.2,1 botella de agua (500ml),45 min ampolleta LED,1 km en auto
-Claude 3 Opus,Anthropic,imagen,imagen,1.8,0.5,1.0,1 botella de agua (500ml),40 min ampolleta LED,900 m en auto
-GPT-4 Turbo,OpenAI,imagen,imagen,2.3,0.65,1.25,1 botella de agua (500ml),50 min ampolleta LED,1.1 km en auto
-Gemini 1.5 Pro,Google,audio,minuto,1.4,0.33,0.58,2 vasos de agua,24 min ampolleta LED,580 m en auto
-Claude 3 Opus,Anthropic,audio,minuto,1.3,0.3,0.55,2 vasos de agua,22 min ampolleta LED,550 m en auto
-Gemini 1.5 Pro,Google,video,minuto,4.5,1.2,2.5,2 botellas de agua (1L),1.5 h ampolleta LED,2.5 km en auto
-Claude 3 Opus,Anthropic,video,minuto,4.0,1.0,2.2,2 botellas de agua (1L),1.3 h ampolleta LED,2.2 km en auto
-GPT-4 Turbo,OpenAI,video,minuto,4.8,1.3,2.8,2 botellas de agua (1L),1.6 h ampolleta LED,2.8 km en auto
+modelo,proveedor,tipo_consulta,unidad_medida,agua(L),energia(kWh),carbono(gCO2e),consultas_mensuales,agua_mensual,energia_mensual,co2_mensual,eq_agua,eq_energia,eq_co2
+GPT-4 Turbo,OpenAI,texto,pregunta,0.345,0.345,0.575,100,34.5,34.5,57.5,"1.38 vasos de agua / 0.69 botellas de 500ml / 0.0046 duchas de 5 min","5.75 min ampolleta LED","0.00479 km en auto"
+GPT-4 Turbo,OpenAI,código,bloque,0.805,0.518,1.15,100,80.5,51.8,115.0,"3.22 vasos de agua / 1.61 botellas de 500ml / 0.0107 duchas de 5 min","8.64 min ampolleta LED","0.00958 km en auto"
+GPT-4 Turbo,OpenAI,imagen,imagen,2.30,1.15,4.00,100,230.0,115.0,400.0,"9.20 vasos de agua / 4.60 botellas de 500ml / 0.0307 duchas de 5 min","19.17 min ampolleta LED","0.03333 km en auto"
+GPT-4 Turbo,OpenAI,audio,minuto,1.15,0.575,2.00,100,115.0,57.5,200.0,"4.60 vasos de agua / 2.30 botellas de 500ml / 0.0153 duchas de 5 min","9.59 min ampolleta LED","0.01667 km en auto"
+GPT-4 Turbo,OpenAI,video,minuto,4.025,1.495,6.90,100,402.5,149.5,690.0,"16.10 vasos de agua / 8.05 botellas de 500ml / 0.0537 duchas de 5 min","24.92 min ampolleta LED","0.05750 km en auto"
+Gemini 1.5,Google,texto,pregunta,0.30,0.30,0.50,100,30.0,30.0,50.0,"1.20 vasos de agua / 0.60 botellas de 500ml / 0.0040 duchas de 5 min","5.00 min ampolleta LED","0.00417 km en auto"
+Gemini 1.5,Google,código,bloque,0.70,0.45,1.00,100,70.0,45.0,100.0,"2.80 vasos de agua / 1.40 botellas de 500ml / 0.0093 duchas de 5 min","7.50 min ampolleta LED","0.00833 km en auto"
+Gemini 1.5,Google,imagen,imagen,2.00,1.00,3.40,100,200.0,100.0,340.0,"8.00 vasos de agua / 4.00 botellas de 500ml / 0.0267 duchas de 5 min","16.67 min ampolleta LED","0.02833 km en auto"
+Gemini 1.5,Google,audio,minuto,1.00,0.50,1.80,100,100.0,50.0,180.0,"4.00 vasos de agua / 2.00 botellas de 500ml / 0.0133 duchas de 5 min","8.34 min ampolleta LED","0.01500 km en auto"
+Gemini 1.5,Google,video,minuto,3.50,1.30,6.00,100,350.0,130.0,600.0,"14.00 vasos de agua / 7.00 botellas de 500ml / 0.0467 duchas de 5 min","21.67 min ampolleta LED","0.05000 km en auto"
+Claude 3,Anthropic,texto,pregunta,0.255,0.255,0.425,100,25.5,25.5,42.5,"1.02 vasos de agua / 0.51 botellas de 500ml / 0.0034 duchas de 5 min","4.25 min ampolleta LED","0.00354 km en auto"
+Claude 3,Anthropic,código,bloque,0.595,0.383,0.85,100,59.5,38.3,85.0,"2.38 vasos de agua / 1.19 botellas de 500ml / 0.0079 duchas de 5 min","6.38 min ampolleta LED","0.00708 km en auto"
+Claude 3,Anthropic,imagen,imagen,1.70,0.85,3.00,100,170.0,85.0,300.0,"6.80 vasos de agua / 3.40 botellas de 500ml / 0.0227 duchas de 5 min","14.17 min ampolleta LED","0.02500 km en auto"
+Claude 3,Anthropic,audio,minuto,0.85,0.425,1.70,100,85.0,42.5,170.0,"3.40 vasos de agua / 1.70 botellas de 500ml / 0.0113 duchas de 5 min","7.08 min ampolleta LED","0.01417 km en auto"
+Claude 3,Anthropic,video,minuto,3.05,1.105,5.10,100,305.0,110.5,510.0,"12.20 vasos de agua / 6.10 botellas de 500ml / 0.0407 duchas de 5 min","18.42 min ampolleta LED","0.04250 km en auto"
