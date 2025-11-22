@@ -58,7 +58,7 @@
 ### Backend
 - **Python 3.13** - Lenguaje principal
 - **Flask 3.0+** - Framework web minimalista
-- **Pandas** - Procesamiento y análisis de datos
+- **CSV nativo** - Procesamiento eficiente de datos
 - **Pytest** - Framework de testing con cobertura
 
 ### Frontend  
@@ -534,7 +534,7 @@ Este proyecto está desarrollado como parte del curso de **Python con Flask** de
 
 **📚 Objetivos de Aprendizaje Logrados:**
 - ✅ Desarrollo web con Flask y Python
-- ✅ Manipulación de datos con Pandas  
+- ✅ Manipulación eficiente de CSV con Python nativo  
 - ✅ Frontend responsivo con HTML/CSS/JS
 - ✅ Testing automatizado con pytest
 - ✅ Control de versiones con Git/GitHub
