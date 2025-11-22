@@ -215,7 +215,7 @@ JavaScript (main.js) mejora UX
 
 ---
 
-## 🧪 Testing y Calidad de Código
+## Testing y Calidad de Código
 
 ### Estadísticas de Testing
 - **Total Tests**: 53 (100% passing)
@@ -522,17 +522,17 @@ docs(readme): actualizar documentación de instalación
 
 ---
 
-## 👩‍💻 Equipo de Desarrollo
+## Equipo de Desarrollo
 
 ### Desarrolladoras Principales
-- **🌟 Estrella Alberto** - Data Science & UX/UI
-- **💻 Martina Muñoz** - Backend, Testing, DevOps
+- **Estrella Alberto** - Data Science & UX/UI
+- **Martina Muñoz** - Backend, Testing, DevOps
 
-## 📄 Licencia
+## Licencia
 
 Este proyecto está desarrollado como parte del curso de **Python con Flask** de **Latinas in Cloud**.
 
-**📚 Objetivos de Aprendizaje Logrados:**
+**Objetivos de Aprendizaje Logrados:**
 - ✅ Desarrollo web con Flask y Python
 - ✅ Manipulación eficiente de CSV con Python nativo  
 - ✅ Frontend responsivo con HTML/CSS/JS
@@ -550,3 +550,4 @@ Este proyecto está desarrollado como parte del curso de **Python con Flask** de
 [![Python](https://img.shields.io/badge/Made%20with-Python-3776ab)](https://python.org)
 
 [![Flask](https://img.shields.io/badge/Powered%20by-Flask-000000)](https://flask.palletsprojects.com)
+
